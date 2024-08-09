@@ -24,8 +24,17 @@ find "$script_dir" -type f -name "pubspec.yaml" -exec sh -c '
 ' _ "$new_package_name" {} \;
 
 # Update Flutter package imports in Dart files within the /lib directory
-echo "Updating Flutter package imports in Dart files..."
+echo "Updating Flutter package imports in Dart source files..."
 lib_path="${script_dir}/lib"
+if [ -d "$lib_path" ]; then
+    find "$lib_path" -type f -name "*.dart" -exec sh -c '
+      sed -i.bak "s/package:$2\//package:$1\//g" "$3" && echo "Updated $3" && rm "$3.bak"
+    ' _ "$new_package_name" "$old_package_name" {} \;
+fi
+
+# Update Flutter package imports in Dart files within the /test directory
+echo "Updating Flutter package imports in Dart test files..."
+lib_path="${script_dir}/test"
 if [ -d "$lib_path" ]; then
     find "$lib_path" -type f -name "*.dart" -exec sh -c '
       sed -i.bak "s/package:$2\//package:$1\//g" "$3" && echo "Updated $3" && rm "$3.bak"

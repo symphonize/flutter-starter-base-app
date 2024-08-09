@@ -54,11 +54,47 @@ echo "Updating Flutter package names in pubspec.yaml files..."
 find "$destination_path" -type f -name "pubspec.yaml" -exec sh -c 'sed -i "" "s/^name:.*/name: $1/" "$2" && echo "Updated $2"' _ "$new_package_name" {} \;
 
 # Update Flutter package imports in Dart files within the /lib directory
-echo "Updating Flutter package imports in Dart files..."
+echo "Updating Flutter package imports in Dart source files..."
 lib_path="${destination_path}/lib"
 if [ -d "$lib_path" ]; then
     find "$lib_path" -type f -name "*.dart" -exec sh -c 'sed -i "" "s/package:$2\//package:$1\//g" "$3" && echo "Updated $3"' _ "$new_package_name" "$old_package_name" {} \;
 fi
 
+# Update Flutter package imports in Dart files within the /test directory
+echo "Updating Flutter package imports in Dart test files..."
+lib_path="${script_dir}/test"
+if [ -d "$lib_path" ]; then
+    find "$lib_path" -type f -name "*.dart" -exec sh -c '
+      sed -i.bak "s/package:$2\//package:$1\//g" "$3" && echo "Updated $3" && rm "$3.bak"
+    ' _ "$new_package_name" "$old_package_name" {} \;
+fi
+
 # Inform user of success
 echo "The destination has been successfully bootstrapped with the starter project."
+
+# Run pub get
+echo "Running flutter pub get..."
+flutter pub get
+
+# Store the current directory
+current_dir=$(pwd)
+
+# Check if the ios directory exists before trying to cd into it
+ios_dir="$destination_path/ios"
+if [ -d "$ios_dir" ]; then
+    echo "Navigating to iOS directory..."
+    cd "$ios_dir"
+    pod install
+    echo "Returning to the previous directory..."
+    cd "$current_dir"
+else
+    echo "iOS directory not found, skipping pod install."
+fi
+
+# Run localization generation
+echo "Generating localization files..."
+flutter pub run easy_localization:generate -S assets/locale -f keys -O lib/src/localization/generated -o locale_keys.g.dart
+
+# Generate the .g.dart file
+echo "Generating .g.dart files..."
+flutter pub run build_runner build base_detail_field --delete-conflicting-outputs

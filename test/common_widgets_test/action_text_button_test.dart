@@ -1,4 +1,4 @@
-import 'package:danlaw_charger/src/common_widgets/action_text_button.dart';
+import 'package:flutter_starter_base_app/src/common_widgets/action_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

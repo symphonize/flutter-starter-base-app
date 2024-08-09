@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:danlaw_charger/src/constants/colors.dart';
-import 'package:danlaw_charger/src/common_widgets/custom_stepper.dart';
+import 'package:flutter_starter_base_app/src/constants/colors.dart';
+import 'package:flutter_starter_base_app/src/common_widgets/custom_stepper.dart';
 
 void main() {
   group('CustomStepper Widget Tests', () {
