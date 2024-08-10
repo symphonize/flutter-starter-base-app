@@ -62,15 +62,17 @@ fi
 
 # Update Flutter package imports in Dart files within the /test directory
 echo "Updating Flutter package imports in Dart test files..."
-lib_path="${script_dir}/test"
-if [ -d "$lib_path" ]; then
-    find "$lib_path" -type f -name "*.dart" -exec sh -c '
-      sed -i.bak "s/package:$2\//package:$1\//g" "$3" && echo "Updated $3" && rm "$3.bak"
-    ' _ "$new_package_name" "$old_package_name" {} \;
+test_path="${destination_path}/test"
+if [ -d "$test_path" ]; then
+    find "$test_path" -type f -name "*.dart" -exec sh -c 'sed -i "" "s/package:$2\//package:$1\//g" "$3" && echo "Updated $3"' _ "$new_package_name" "$old_package_name" {} \;
 fi
 
 # Inform user of success
-echo "The destination has been successfully bootstrapped with the starter project."
+echo "The destination [${destination_path}] has been successfully bootstrapped with the starter project."
+
+# change directory to the ${destination_path}
+echo "Navigating to Destination Directory [${destination_path}]"
+cd ${destination_path}
 
 # Run pub get
 echo "Running flutter pub get..."
@@ -78,17 +80,37 @@ flutter pub get
 
 # Store the current directory
 current_dir=$(pwd)
+echo "Initial directory: ${current_dir}"
 
 # Check if the ios directory exists before trying to cd into it
 ios_dir="$destination_path/ios"
 if [ -d "$ios_dir" ]; then
-    echo "Navigating to iOS directory..."
+    echo "Navigating to iOS directory [${ios_dir}]..."
     cd "$ios_dir"
     pod install
-    echo "Returning to the previous directory..."
+    echo "Returning to the previous directory [${current_dir}]..."
     cd "$current_dir"
 else
-    echo "iOS directory not found, skipping pod install."
+    echo "iOS directory [${ios_dir}] not found, skipping pod install."
+fi
+
+# Check if flutter_native_splash.yaml exists in the destination directory
+splash_config_file="$destination_path/flutter_native_splash.yaml"
+splash_image_file="$destination_path/assets/splash.jpg"
+
+
+if [ -f "$splash_config_file" ] && [ -f "$splash_image_file" ]; then
+    # Prompt the user if they want to create the splash screen
+    echo "flutter_native_splash.yaml and assets/splash.jpg found."
+    read -p "Would you like to create the splash screen now? (y/n): " create_splash
+    if [[ "$create_splash" == "y" || "$create_splash" == "Y" ]]; then
+        echo "Creating splash screen..."
+        dart run flutter_native_splash:create --path="$splash_config_file"
+    else
+        echo "Skipping splash screen creation."
+    fi
+else
+    echo "flutter_native_splash.yaml or assets/splash.jpg not found, skipping splash screen creation."
 fi
 
 # Run localization generation
