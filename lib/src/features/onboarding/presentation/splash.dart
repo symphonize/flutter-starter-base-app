@@ -13,18 +13,17 @@ class SplashView extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
       body: Container(
           decoration:
-              const BoxDecoration(image: DecorationImage(image: AssetImage('assets/splash.jpg'), fit: BoxFit.cover)),
+              const BoxDecoration(image: DecorationImage(image: AssetImage('assets/splash.png'), fit: BoxFit.cover)),
           child: Stack(children: [
             Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                    height: 250,
+                    height: 150,
                     width: double.infinity,
                     color: CustomColors().whitecolor,
                     child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-                          Image.asset('assets/logo.png'),
                           const SizedBox(height: 20),
                           PrimaryButton(
                               text: LocaleKeys.btn_getStarted.tr(),
