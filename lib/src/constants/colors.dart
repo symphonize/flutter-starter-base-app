@@ -69,7 +69,7 @@ class CustomColors {
   Color get darkGray => HexColor("#1C1C1E");
   Color get grayColor => const Color.fromRGBO(84, 84, 88, 0.65);
 
-  Color get lightblueColor => HexColor("#D0BCFF"); /* primarybuttonBGcolor, hinttextcolor, actiontextbuttoncolor */
+  Color get lightblueColor => HexColor("#3796d0"); /* primarybuttonBGcolor, hinttextcolor, actiontextbuttoncolor */
   Color get darkblueColor => HexColor("#381E72"); /*primarybuttontextcolor*/
   Color get whitecolor => HexColor("#FFFFFF"); /* TextColor*/
   Color get lightGrayColor => HexColor('#3A3A3C'); // Card background color
