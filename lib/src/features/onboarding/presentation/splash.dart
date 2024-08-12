@@ -28,7 +28,7 @@ class SplashView extends StatelessWidget {
                           PrimaryButton(
                               text: LocaleKeys.btn_getStarted.tr(),
                               backgroundColor: CustomColors().lightblueColor,
-                              onPressed: () => context.goNamed(AppRoute.setupSecreen.name)),
+                              onPressed: () => context.goNamed(AppRoute.home.name)),
                           const SizedBox(height: 10),
                           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                             Text('${LocaleKeys.btn_haveAccount.tr()} ',
