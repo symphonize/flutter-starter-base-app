@@ -248,7 +248,7 @@ class _AccountDetailsPageState extends ConsumerState<AccountDetailsPage> {
                                           }
                                         },
                                         validator: (value) =>
-                                            EmailValidator.validate(value ?? '') ? null : "Please enter a valid email",
+                                            EmailValidator.validate(value ?? '') ? null : 'Please enter a valid email',
                                       ),
                                     )
                                   else
@@ -277,7 +277,7 @@ class _AccountDetailsPageState extends ConsumerState<AccountDetailsPage> {
                             if (result == true) {
                               ref.invalidate(fetchAccountDetailsProvider);
                               ref.read(fetchAccountDetailsProvider);
-                              debugPrint("refresh = ");
+                              debugPrint('refresh = ');
                             }
                           },
                           child: Container(
@@ -315,7 +315,7 @@ class _AccountDetailsPageState extends ConsumerState<AccountDetailsPage> {
                             if (result == true) {
                               ref.invalidate(fetchAccountDetailsProvider);
                               ref.read(fetchAccountDetailsProvider);
-                              debugPrint("refresh = ");
+                              debugPrint('refresh = ');
                             }
                           },
                           child: Container(

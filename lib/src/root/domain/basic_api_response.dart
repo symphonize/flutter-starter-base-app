@@ -4,8 +4,8 @@ part 'basic_api_response.g.dart';
 @JsonSerializable()
 class APIResponse {
 
-  factory APIResponse.failed() =>  APIResponse(message: "Failed", status: "500");
-  factory APIResponse.success() =>  APIResponse(message: "Success", status: "200");
+  factory APIResponse.failed() =>  APIResponse(message: 'Failed', status: '500');
+  factory APIResponse.success() =>  APIResponse(message: 'Success', status: '200');
 
   final String message;
   final dynamic status;

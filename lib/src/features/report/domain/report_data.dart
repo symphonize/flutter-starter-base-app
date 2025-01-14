@@ -1,11 +1,12 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter_starter_base_app/src/root/domain/item.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'report_data.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class ReportData implements Item {
+  @override
   final String label;
+  @override
   final String value;
 
   final double x;

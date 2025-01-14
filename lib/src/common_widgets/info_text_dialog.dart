@@ -16,7 +16,7 @@ Future<bool?> showInfoDialog(
       contentTextStyle: DefaultTheme().defaultTextStyle(14),
       actionsAlignment: MainAxisAlignment.start,
       actions: <Widget>[
-        TextButton(child: const Text("OK"), onPressed: () => context.pop()),
+        TextButton(child: const Text('OK'), onPressed: () => context.pop()),
       ],
     ),
   );

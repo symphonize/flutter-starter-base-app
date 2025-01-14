@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_starter_base_app/src/common_widgets/app_bar.dart';
 import 'package:flutter_starter_base_app/src/common_widgets/basic_page_importer.dart';
 import 'package:flutter_starter_base_app/src/common_widgets/circular_loading_animation.dart';
 import 'package:flutter_starter_base_app/src/features/report/data/report_providers.dart';

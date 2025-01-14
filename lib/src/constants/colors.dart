@@ -66,22 +66,22 @@ class CustomColors {
   // Color get batteryOrangishYellow => HexColor('#FF007568');
   Color get batteryGreen => HexColor('#00FF38');
   Color get batteryYellowishGreen => HexColor('#D9FD00');
-  Color get darkGray => HexColor("#1C1C1E");
+  Color get darkGray => HexColor('#1C1C1E');
   Color get grayColor => const Color.fromRGBO(84, 84, 88, 0.65);
 
-  Color get lightblueColor => HexColor("#3796d0"); /* primarybuttonBGcolor, hinttextcolor, actiontextbuttoncolor */
-  Color get darkblueColor => HexColor("#381E72"); /*primarybuttontextcolor*/
-  Color get whitecolor => HexColor("#FFFFFF"); /* TextColor*/
+  Color get lightblueColor => HexColor('#3796d0'); /* primarybuttonBGcolor, hinttextcolor, actiontextbuttoncolor */
+  Color get darkblueColor => HexColor('#381E72'); /*primarybuttontextcolor*/
+  Color get whitecolor => HexColor('#FFFFFF'); /* TextColor*/
   Color get lightGrayColor => HexColor('#3A3A3C'); // Card background color
-  Color get darkelevatedColor => HexColor("#3A3A3C");
+  Color get darkelevatedColor => HexColor('#3A3A3C');
 
-  Color get lightredColor => HexColor("#EFB8C8");
+  Color get lightredColor => HexColor('#EFB8C8');
 
   Color get secondaryDark =>const Color.fromRGBO(235, 235, 245, 0.6);
   Color get progressBarFilledColor => primaryTextColor;
   Color get progressBarInactiveColor => HexColor('#ffbababa');
-  Color get blueColor => HexColor("02B0F0"); //Manual schedule available hours color
-  Color get blackColor => HexColor("38383A"); // Not avilable hours color
+  Color get blueColor => HexColor('02B0F0'); //Manual schedule available hours color
+  Color get blackColor => HexColor('38383A'); // Not avilable hours color
 
   /// Reports Page
   Color get reportBarBlue => HexColor('#02B0F0');
@@ -90,7 +90,7 @@ class CustomColors {
   Color get tableBorderColor => HexColor('#99EBEBF5');
 
   ///Setup flow
-  Color get setUpText => HexColor("#CCC2DC");
+  Color get setUpText => HexColor('#CCC2DC');
 
   ///close icon
   Color get bgCloseIcon =>  const Color.fromRGBO(127, 127, 127, 0.5);

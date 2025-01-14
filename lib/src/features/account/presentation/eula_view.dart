@@ -14,7 +14,7 @@ class EulaView extends ConsumerWidget {
   final bool isCancellable;
   final Function(bool acceptEULA) onEULAAccepted;
 
-  const EulaView({super.key, required this.onEULAAccepted, this.isCancellable = true});
+  const EulaView({required this.onEULAAccepted, super.key, this.isCancellable = true});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => SafeArea(
@@ -55,7 +55,7 @@ class EulaView extends ConsumerWidget {
                                             error: (error, stackTrace) => Text(
                                                 'EULA INFORMATION\n\nCannot fetch EULA at this time. Please try again later.',
                                                 style: DefaultTheme().defaultTextStyle(18)),
-                                            loading: () => Container())))),
+                                            loading: Container.new)))),
                         SizedBox(
 
                             ///XXX:
@@ -63,13 +63,13 @@ class EulaView extends ConsumerWidget {
                             width: MediaQuery.of(context).size.width,
                             child: Column(mainAxisSize: MainAxisSize.min, children: [
                               PrimaryButton(
-                                  text: "I have read and accept the EULA",
+                                  text: 'I have read and accept the EULA',
                                   onPressed: () async {
                                     onEULAAccepted(true);
                                     if (!isCancellable) context.goNamed(AppRoute.eulaTransition.name);
                                   },
                                   backgroundColor: CustomColors().lightblueColor),
-                              if (isCancellable) ActionTextButton(text: "Cancel", onPressed: () => context.pop(false))
+                              if (isCancellable) ActionTextButton(text: 'Cancel', onPressed: () => context.pop(false))
                             ]))
                       ]))))));
 }

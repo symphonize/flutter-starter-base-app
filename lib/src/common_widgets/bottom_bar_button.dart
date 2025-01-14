@@ -10,7 +10,7 @@ import 'package:flutter_starter_base_app/src/constants/svg_loader.dart';
 StateProvider<bool> showBottomNav = StateProvider((ref) => true);
 
 class CustomNavigationBar extends ConsumerWidget {
-  const CustomNavigationBar({super.key, required this.child});
+  const CustomNavigationBar({required this.child, super.key});
 
   final Widget child;
 

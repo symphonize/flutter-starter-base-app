@@ -4,7 +4,7 @@ import 'package:flutter_starter_base_app/src/common_widgets/error_message_widget
 import 'package:flutter_starter_base_app/src/common_widgets/circular_loading_animation.dart';
 
 class AsyncValueWidget<T> extends StatelessWidget {
-  const AsyncValueWidget({super.key, required this.value, required this.data});
+  const AsyncValueWidget({required this.value, required this.data, super.key});
   final AsyncValue<T> value;
   final Widget Function(T) data;
 
@@ -19,7 +19,7 @@ class AsyncValueWidget<T> extends StatelessWidget {
 }
 
 class ScaffoldAsyncValueWidget<T> extends StatelessWidget {
-  const ScaffoldAsyncValueWidget({super.key, required this.value, required this.data});
+  const ScaffoldAsyncValueWidget({required this.value, required this.data, super.key});
   final AsyncValue<T> value;
   final Widget Function(T) data;
 

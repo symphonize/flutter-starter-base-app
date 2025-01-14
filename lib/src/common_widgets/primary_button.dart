@@ -11,8 +11,7 @@ import 'package:flutter_starter_base_app/src/common_widgets/circular_loading_ani
 /// @param onPressed - callback to be called when the button is pressed.
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
-    super.key,
-    required this.text,
+    required this.text, super.key,
     this.isLoading = false,
     this.onPressed,
     this.backgroundColor,

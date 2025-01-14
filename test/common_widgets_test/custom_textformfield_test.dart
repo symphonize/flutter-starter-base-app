@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('CustomTextFormField Tests', () {
     testWidgets('displays hint text correctly', (WidgetTester tester) async {
-      final hintText = 'Enter text';
+      const hintText = 'Enter text';
 
       await tester.pumpWidget(
         MaterialApp(
@@ -31,7 +31,7 @@ void main() {
               controller: TextEditingController(),
               textInputType: TextInputType.text,
               hintText: 'Enter text',
-              prefixIcon: Icon(Icons.location_on),
+              prefixIcon: const Icon(Icons.location_on),
             ),
           ),
         ),
@@ -41,7 +41,7 @@ void main() {
     });
 
     testWidgets('onTap callback is triggered', (WidgetTester tester) async {
-      bool tapped = false;
+      var tapped = false;
 
       await tester.pumpWidget(
         MaterialApp(
@@ -77,7 +77,7 @@ void main() {
                 textInputType: TextInputType.text,
                 hintText: 'Enter text',
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
+                  if (value == null || (value as String).isEmpty) {
                     return 'Error text';
                   }
                   return null;
@@ -94,8 +94,7 @@ void main() {
       expect(find.text('Error text'), findsOneWidget);
     });
 
-    testWidgets('readonly field does not accept input',
-        (WidgetTester tester) async {
+    testWidgets('readonly field does not accept input', (WidgetTester tester) async {
       final controller = TextEditingController(text: 'Initial text');
 
       await tester.pumpWidget(

@@ -3,7 +3,7 @@ part of 'alert_dialogs.dart';
 Future<void> showExceptionAlertDialog({
   required BuildContext context,
   required String title,
-  required dynamic exception,
+  required exception,
 }) =>
     showAlertDialog(
       context: context,
@@ -12,7 +12,7 @@ Future<void> showExceptionAlertDialog({
       defaultActionText: 'OK',
     );
 
-String _message(dynamic exception) {
+String _message(exception) {
   if (exception is PlatformException) {
     return exception.message ?? exception.toString();
   }

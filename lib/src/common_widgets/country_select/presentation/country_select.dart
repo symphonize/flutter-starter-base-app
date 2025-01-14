@@ -14,9 +14,9 @@ class CountrySelect extends ConsumerWidget {
   final Item? initialSelection;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    onCountrySelection(List<Item> choosenItemList) {
+    void onCountrySelection(List<Item> choosenItemList) {
       if (choosenItemList.length == 1) {
-        debugPrint("choosen item: ${choosenItemList.first.label}");
+        debugPrint('choosen item: ${choosenItemList.first.label}');
         context.pop(choosenItemList.first);
         return;
       }

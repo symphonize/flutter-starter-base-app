@@ -29,8 +29,7 @@ class _ForgotPasswordViewState extends ConsumerState<ForgotPasswordView> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: CustomAppBar(
-          titleWidget: Text(LocaleKeys.btn_forgotPassword.tr()), showBackButton: true, showHamburgerMenu: false),
+      appBar: CustomAppBar(titleWidget: Text(LocaleKeys.btn_forgotPassword.tr()), showBackButton: true, showHamburgerMenu: false),
       body: Container(
           color: CustomColors().darkGray,
           child: Form(
@@ -41,19 +40,13 @@ class _ForgotPasswordViewState extends ConsumerState<ForgotPasswordView> {
                     Column(children: [
                       Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 17.5, vertical: 16),
-                          child: Text(LocaleKeys.account_reset_forgotPassDesc.tr(),
-                              style: TextStyle(
-                                  color: CustomColors().whitecolor, fontSize: 17, fontWeight: FontWeight.w400))),
+                          child: Text(LocaleKeys.account_reset_forgotPassDesc.tr(), style: TextStyle(color: CustomColors().whitecolor, fontSize: 17, fontWeight: FontWeight.w400))),
                       _buildUsername(context)
                     ]),
-                    Column(children: [
-                      _buildResetPassword(context),
-                      ActionTextButton(
-                          onPressed: () => context.canPop() ? context.pop() : null, text: LocaleKeys.btn_login.tr())
-                    ])
+                    Column(children: [_buildResetPassword(context), ActionTextButton(onPressed: () => context.canPop() ? context.pop() : null, text: LocaleKeys.btn_login.tr())])
                   ])))));
 
-  _buildResetPassword(BuildContext context) => PrimaryButton(
+  PrimaryButton _buildResetPassword(BuildContext context) => PrimaryButton(
       text: LocaleKeys.btn_resetPassword.tr(),
       backgroundColor: CustomColors().lightblueColor,
       onPressed: () async {
@@ -72,7 +65,7 @@ class _ForgotPasswordViewState extends ConsumerState<ForgotPasswordView> {
         }
       });
 
-  _buildUsername(BuildContext context) => CustomTextFormField(
+  CustomTextFormField _buildUsername(BuildContext context) => CustomTextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: usernameController,
       focusNode: _usernameFocusNode,
@@ -81,17 +74,16 @@ class _ForgotPasswordViewState extends ConsumerState<ForgotPasswordView> {
       prefixIcon: Padding(
           padding: const EdgeInsets.only(left: 15.0, right: 10),
           child: Row(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.center, children: [
-            Text(LocaleKeys.common_username.tr(),
-                style: TextStyle(color: CustomColors().whitecolor, fontWeight: FontWeight.w400, fontSize: 17)),
+            Text(LocaleKeys.common_username.tr(), style: TextStyle(color: CustomColors().whitecolor, fontWeight: FontWeight.w400, fontSize: 17)),
             SizedBox(width: MediaQuery.of(context).size.width * 0.02),
             Icon(Icons.help, color: CustomColors().lightblueColor, size: 15)
           ])),
       validator: (value) {
-        if (value == null || value.isEmpty) {
+        if (value == null || (value as String).isEmpty) {
           return "Username can't be empty";
         }
         if (value.length < 3) {
-          return "Username must be at least 3 characters";
+          return 'Username must be at least 3 characters';
         }
         if (value.length > 50) {
           return "Username can't be more than 50 characters";

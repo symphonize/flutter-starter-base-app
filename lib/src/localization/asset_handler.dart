@@ -39,7 +39,7 @@ class AssetHandler extends AssetLoader {
       // Try to load from local file
       if (await localFile.exists()) {
         final localData = await translationStorage.readTranslationFile();
-        _cachedData[localeKey] = json.decode(localData);
+        _cachedData[localeKey] = json.decode(localData) as Map<String, Map<String, dynamic>>;
         return _cachedData[localeKey]!;
       }
 
@@ -63,7 +63,7 @@ class AssetHandler extends AssetLoader {
         // Save the domain to local storage
         final translationStorage = TranslationStorage(locale: locale);
         await translationStorage.writeTranslationFile(json.encode(data));
-        return data;
+        return data as Map<String, dynamic>;
       }
       return null;
     } catch (e) {
@@ -76,7 +76,7 @@ class AssetHandler extends AssetLoader {
     try {
       final assetPath = '$path/${_getLocaleString(locale)}.json';
       final data = await rootBundle.loadString(assetPath);
-      return json.decode(data);
+      return json.decode(data) as Map<String, dynamic>;
     } catch (e) {
       debugPrint(e.toString());
       throw Exception('Failed to load asset file');

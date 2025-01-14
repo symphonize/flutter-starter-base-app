@@ -12,19 +12,18 @@ class CustomStepper extends StatelessWidget {
   final PageController? pageController;
   final Function(bool isValid)? onStepContinue;
 
-  CustomStepper({
-    Key? key,
-    this.width,
+  const CustomStepper({
     required this.curStep,
     required this.totalSteps,
     required this.stepCompleteColor,
     required this.inactiveColor,
     required this.currentStepColor,
     required this.lineWidth,
+    super.key,
+    this.width,
     this.pageController,
     this.onStepContinue,
-  })  : assert(curStep > 0 && curStep <= totalSteps),
-        super(key: key);
+  }) : assert(curStep > 0 && curStep <= totalSteps);
 
   @override
   Widget build(BuildContext context) {
@@ -34,46 +33,45 @@ class CustomStepper extends StatelessWidget {
         left: 10.0,
         right: 10.0,
       ),
-      width: this.width,
+      width: width,
       child: Row(
         children: _steps(),
       ),
     );
   }
 
-  getCircleColor(i) {
-    var color;
+  Color getCircleColor(int i) {
+    Color color;
     if (i + 1 < curStep) {
       color = stepCompleteColor;
-    } else if (i + 1 == curStep)
+    } else if (i + 1 == curStep) {
       color = currentStepColor;
-    else
+    } else {
       color = CustomColors().whitecolor;
+    }
     return color;
   }
 
-  getBorderColor(i) {
-    var color;
+  Color getBorderColor(int i) {
+    Color color;
     if (i + 1 < curStep) {
       color = stepCompleteColor;
-    } else if (i + 1 == curStep)
+    } else if (i + 1 == curStep) {
       color = currentStepColor;
-    else
+    } else {
       color = inactiveColor;
-
+    }
     return color;
   }
 
-  getLineColor(i) {
-    var color = curStep > i + 1
-        ? CustomColors().lightblueColor
-        : CustomColors().whitecolor;
+  Color getLineColor(int i) {
+    var color = curStep > i + 1 ? CustomColors().lightblueColor : CustomColors().whitecolor;
     return color;
   }
 
   List<Widget> _steps() {
     var list = <Widget>[];
-    for (int i = 0; i < totalSteps; i++) {
+    for (var i = 0; i < totalSteps; i++) {
       //colors according to state
 
       var circleColor = getCircleColor(i);
@@ -90,15 +88,15 @@ class CustomStepper extends StatelessWidget {
           child: Container(
             width: 8.0,
             height: 8.0,
-            child: getInnerElementOfStepper(i),
-            decoration: new BoxDecoration(
+            decoration: BoxDecoration(
               color: circleColor,
-              borderRadius: new BorderRadius.all(new Radius.circular(25.0)),
-              border: new Border.all(
+              borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+              border: Border.all(
                 color: borderColor,
                 width: 1.0,
               ),
             ),
+            child: getInnerElementOfStepper(i),
           ),
         ),
       );
@@ -119,7 +117,7 @@ class CustomStepper extends StatelessWidget {
     return list;
   }
 
-  Widget getInnerElementOfStepper(index) {
+  Widget getInnerElementOfStepper(int index) {
     if (index + 1 < curStep) {
       return Container();
     } else if (index + 1 == curStep) {

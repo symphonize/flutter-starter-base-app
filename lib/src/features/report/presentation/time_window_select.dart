@@ -14,28 +14,24 @@ class TimeWindowSingleSelect extends ConsumerWidget {
   final String text;
   final String value;
   final String description;
-  const TimeWindowSingleSelect({super.key, required this.text, required this.value, required this.description});
+  const TimeWindowSingleSelect({required this.text, required this.value, required this.description, super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) => Container(
       padding: const EdgeInsets.only(top: 7, bottom: 7, left: 17, right: 17),
       child: Row(children: [
         Text(text, style: DefaultTheme().defaultTextStyle(18)),
-        Tooltip(
-            message: description,
-            child: Container(padding: const EdgeInsets.only(left: 10), child: SVGLoader().questionMark)),
+        Tooltip(message: description, child: Container(padding: const EdgeInsets.only(left: 10), child: SVGLoader().questionMark)),
         const Spacer(),
-        Text( ref.watch(currentTimeWindow).localizationKey.tr(),
-            style: DefaultTheme().defaultTextStyle(17).copyWith(color: CustomColors().darkGrayText)),
+        Text(ref.watch(currentTimeWindow).localizationKey.tr(), style: DefaultTheme().defaultTextStyle(17).copyWith(color: CustomColors().darkGrayText)),
         InkWell(
             child: InkWell(
                 child: Container(padding: const EdgeInsets.only(left: 10), child: SVGLoader().rightArrow),
                 onTap: () async {
-                  LabelValuePair? labelValuePairOrNull = await context.pushNamed(AppRoute.reportTimeWindowSelect.name,
-                      extra: <dynamic>[text, CustomColors().darkGray, TimeWindow.values, ref.read(currentTimeWindow)]);
+                  LabelValuePair? labelValuePairOrNull =
+                      await context.pushNamed(AppRoute.reportTimeWindowSelect.name, extra: <dynamic>[text, CustomColors().darkGray, TimeWindow.values, ref.read(currentTimeWindow)]);
                   if (labelValuePairOrNull != null) {
                     ref.watch(currentTimeWindow.notifier).state = TimeWindow.fromLabelValuePair(labelValuePairOrNull);
-                    WidgetsBinding.instance.addPostFrameCallback(
-                        (_) => ref.read(triggerPage.notifier).state = ref.read(currentTimeWindow));
+                    WidgetsBinding.instance.addPostFrameCallback((_) => ref.read(triggerPage.notifier).state = ref.read(currentTimeWindow));
                   }
                 }))
       ]));

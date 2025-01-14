@@ -30,7 +30,7 @@ class HomePage extends ConsumerWidget {
           data: (List<Contact> contact) {
             return Scaffold(
                 appBar: CustomAppBar(
-                    titleWidget: Text("Contacts",
+                    titleWidget: Text('Contacts',
                         style: DefaultTheme().defaultTextStyle(20).copyWith(fontWeight: FontWeight.w500)),
                         automaticallyImplyLeading: false),
                 body: CustomScrollView(primary: true, scrollDirection: Axis.vertical, slivers: [

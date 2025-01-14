@@ -80,7 +80,7 @@ final routes = <RouteBase>[
       builder: (context, state) => const ForgotPasswordView()),
   GoRoute(
     name: AppRoute.stateChooser.name,
-    path: "/${AppRoute.stateChooser.name}",
+    path: '/${AppRoute.stateChooser.name}',
     parentNavigatorKey: _rootNavigatorKey,
     builder: (context, state) {
       final extras = state.extra as Map<String, dynamic>;
@@ -91,7 +91,7 @@ final routes = <RouteBase>[
   ),
   GoRoute(
     name: AppRoute.countryChooser.name,
-    path: "/${AppRoute.countryChooser.name}",
+    path: '/${AppRoute.countryChooser.name}',
     parentNavigatorKey: _rootNavigatorKey,
     builder: (context, state) {
       final extras = state.extra as Map<String, dynamic>?;
@@ -106,7 +106,7 @@ final routes = <RouteBase>[
             name: AppRoute.account.name,
             path: '/${AppRoute.account.name}',
             builder: (context, state) => const AccountDetailsPage(),
-            routes: [
+            routes: const [
             ]),
         GoRoute(
             name: AppRoute.reports.name,

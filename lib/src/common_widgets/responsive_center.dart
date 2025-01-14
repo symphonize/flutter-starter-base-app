@@ -8,10 +8,9 @@ import 'package:flutter_starter_base_app/src/constants/breakpoints.dart';
 /// available width.
 class ResponsiveCenter extends StatelessWidget {
   const ResponsiveCenter({
-    super.key,
+    required this.child, super.key,
     this.maxContentWidth = Breakpoint.desktop,
     this.padding = EdgeInsets.zero,
-    required this.child,
   });
   final double maxContentWidth;
   final EdgeInsetsGeometry padding;
@@ -38,10 +37,9 @@ class ResponsiveCenter extends StatelessWidget {
 /// Sliver-equivalent of [ResponsiveCenter].
 class ResponsiveSliverCenter extends StatelessWidget {
   const ResponsiveSliverCenter({
-    super.key,
+    required this.child, super.key,
     this.maxContentWidth = Breakpoint.desktop,
     this.padding = EdgeInsets.zero,
-    required this.child,
   });
   final double maxContentWidth;
   final EdgeInsetsGeometry padding;

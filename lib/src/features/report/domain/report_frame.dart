@@ -14,7 +14,7 @@ class TimeWindow extends LabelValuePair with Item {
 
   @override
   String get displayText => name;
-  String get localizationKey => "reports.tw.${timeWindowEum.name}";
+  String get localizationKey => 'reports.tw.${timeWindowEum.name}';
   LabelValuePair get toLabelValuePair => LabelValuePair(label: name, value: value);
   factory TimeWindow.fromLabelValuePair(LabelValuePair labelValuePair) => TimeWindow(
       value: labelValuePair.value,

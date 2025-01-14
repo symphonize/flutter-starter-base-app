@@ -6,7 +6,7 @@ import 'package:flutter_starter_base_app/src/constants/colors.dart';
 // https://www.metageek.com/training/resources/understanding-rssi/
 class ReceptionIcon extends StatelessWidget {
   final int level;
-  const ReceptionIcon({super.key, required this.level});
+  const ReceptionIcon({required this.level, super.key});
   @override
   Widget build(BuildContext context) => switch (level) {
         < -80 => Icon(Icons.wifi_1_bar, color: CustomColors().primaryTextColor),

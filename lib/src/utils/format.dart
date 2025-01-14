@@ -28,5 +28,5 @@ class Format {
     return '';
   }
 
-  static String formatForSchedule(String time) => DateFormat("h a").format(DateFormat("HH:mm:ss").parse(time));
+  static String formatForSchedule(String time) => DateFormat('h a').format(DateFormat('HH:mm:ss').parse(time));
 }

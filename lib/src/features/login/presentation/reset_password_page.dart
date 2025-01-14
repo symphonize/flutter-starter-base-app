@@ -130,13 +130,7 @@ class _ResetPasswordViewState extends ConsumerState<ResetPasswordView> {
                     onPressed: () async {
                       try {
                         if (_formKey.currentState!.validate()) {
-                          await ref
-                              .read(resetPasswordProvider(
-                                      username: usernameController.text,
-                                      newPassword: passwordController.text,
-                                      otp: verificationCodeController.text)
-                                  .future)
-                              .then((response) {
+                          await ref.read(resetPasswordProvider(username: usernameController.text, newPassword: passwordController.text, otp: verificationCodeController.text).future).then((response) {
                             final message = response.message;
                             if (context.mounted) {
                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
@@ -201,12 +195,12 @@ class _ResetPasswordViewState extends ConsumerState<ResetPasswordView> {
         ),
       ),
       validator: (value) {
-        if (value == null || value.isEmpty) {
+        if (value == null || (value as String).isEmpty) {
           return "$label can't be empty";
         }
-        if (label == "Username") {
+        if (label == 'Username') {
           if (value.length < 3) {
-            return "Username must be at least 3 characters";
+            return 'Username must be at least 3 characters';
           }
           if (value.length > 15) {
             return "Username can't be more than 15 characters";
@@ -261,7 +255,7 @@ class _ResetPasswordViewState extends ConsumerState<ResetPasswordView> {
           ),
           hintText: hintText,
           validator: (value) {
-            if (value == null || value.isEmpty) {
+            if (value == null || (value as String).isEmpty) {
               return '$label is required';
             }
             if (!isConfirm) {

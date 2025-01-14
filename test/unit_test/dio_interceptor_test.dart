@@ -1,15 +1,10 @@
-import 'package:flutter_starter_base_app/src/constants/keys.dart';
-import 'package:flutter_starter_base_app/src/utils/vin_check.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_starter_base_app/src/api/mock_api.dart';
-import 'package:world_zipcode_validator/world_zipcode_validator.dart';
-import 'package:us_states/us_states.dart';
 import 'package:country_code/country_code.dart';
-import 'package:uuid/uuid.dart';
 
 void main() {
-  setUpAll(() => WidgetsFlutterBinding.ensureInitialized());
+  setUpAll(WidgetsFlutterBinding.ensureInitialized);
 
   bool isValidPhoneNumber(String? value) =>
       RegExp(r'(^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$)').hasMatch(value ?? '');

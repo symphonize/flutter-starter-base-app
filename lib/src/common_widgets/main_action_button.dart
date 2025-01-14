@@ -6,9 +6,9 @@ class MainActionButton extends ConsumerWidget {
   final Function onTap;
   final bool isDisabled;
   final String buttonText;
-  const MainActionButton({required this.buttonText, required this.onTap, this.isDisabled = false});
+  const MainActionButton({required this.buttonText, required this.onTap, super.key, this.isDisabled = false});
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Container(
+  Widget build(BuildContext context, WidgetRef ref) => SizedBox(
       width: double.infinity,
       child: ElevatedButton(
           onPressed: () => isDisabled ? null : onTap(),

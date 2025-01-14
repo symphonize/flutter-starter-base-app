@@ -9,13 +9,13 @@ class LocalizationService {
   static Locale getDeviceLocale() {
     final platformDispatcher = PlatformDispatcher.instance;
     final deviceLocales = platformDispatcher.locales;
-    debugPrint("Raw device locales: $deviceLocales");
+    debugPrint('Raw device locales: $deviceLocales');
 
     // Try to find a supported locale
     for (var deviceLocale in deviceLocales) {
       // Check for exact match
       if (_supportedLanguages.contains(deviceLocale)) {
-        debugPrint("Using device locale: $deviceLocale");
+        debugPrint('Using device locale: $deviceLocale');
         return deviceLocale;
       }
 
@@ -24,13 +24,13 @@ class LocalizationService {
           _supportedLanguages.where((locale) => locale.languageCode == deviceLocale.languageCode).firstOrNull;
 
       if (matchingLocale != null) {
-        debugPrint("Using matched locale: $matchingLocale");
+        debugPrint('Using matched locale: $matchingLocale');
         return matchingLocale;
       }
     }
 
     // If no match found, use fallback
-    debugPrint("Using fallback locale: $_fallbackLanguage");
+    debugPrint('Using fallback locale: $_fallbackLanguage');
     return _fallbackLanguage;
   }
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_starter_base_app/src/common_widgets/subsection_title.dart';
 import 'package:flutter_starter_base_app/src/features/report/domain/report_by.dart';
 import 'package:flutter_starter_base_app/src/common_widgets/basic_page_importer.dart';
 import 'package:flutter_starter_base_app/src/features/report/domain/report_frame.dart';
@@ -27,8 +26,8 @@ class ReportsPage extends ConsumerWidget {
             ? null
             : newReportList = ReportDataProvider(timeWindow: event.timeWindowEum.name));
     ref.watch(currentlySelectedVehicleList.notifier).stream.listen(onDone: () => newReportList = null, (_) {
-      TimeWindow? currentTimeWindowLocal = ref.read(currentTimeWindow);
-      ref.read(currentlySelectedVehicleList.notifier).state.isEmpty || currentTimeWindowLocal == null
+      var currentTimeWindowLocal = ref.read(currentTimeWindow);
+      ref.read(currentlySelectedVehicleList.notifier).state.isEmpty
           ? newReportList = null
           : newReportList = ReportDataProvider(timeWindow: currentTimeWindowLocal.timeWindowEum.name);
     });

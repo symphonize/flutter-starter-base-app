@@ -5,7 +5,9 @@ part 'label_value.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class LabelValuePair extends Equatable implements Item {
+  @override
   final String label;
+  @override
   final dynamic value;
   const LabelValuePair({required this.label, required this.value});
   factory LabelValuePair.fromJson(Map<String, dynamic> json) => _$LabelValuePairFromJson(json);

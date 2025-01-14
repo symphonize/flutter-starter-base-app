@@ -10,24 +10,24 @@ class UsernameandPasswordPage extends ConsumerStatefulWidget {
   final TextEditingController usernameController;
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
-  UsernameandPasswordPage({
-    Key? key,
-    this.formKey,
+  const UsernameandPasswordPage({
     required this.usernameController,
     required this.passwordController,
     required this.confirmPasswordController,
-  }) : super(key: key);
+    super.key,
+    this.formKey,
+  });
 
   @override
-  _UsernameandPasswordPageState createState() => _UsernameandPasswordPageState();
+  ConsumerState createState() => _UsernameandPasswordPageState();
 }
 
 class _UsernameandPasswordPageState extends ConsumerState<UsernameandPasswordPage> {
   FocusNode _usernamefocusNode = FocusNode();
   FocusNode _passwordfocusNode = FocusNode();
   FocusNode _confirmfocusNode = FocusNode();
-  ValueNotifier obsecurePassword = ValueNotifier(true);
-  ValueNotifier obsecureConfirmPassword = ValueNotifier(true);
+  ValueNotifier<bool> obsecurePassword = ValueNotifier(true);
+  ValueNotifier<bool> obsecureConfirmPassword = ValueNotifier(true);
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class _UsernameandPasswordPageState extends ConsumerState<UsernameandPasswordPag
               Padding(
                 padding: const EdgeInsets.only(top: 15, bottom: 15),
                 child: Text(
-                  "Create Your Username And Password",
+                  'Create Your Username And Password',
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: CustomColors().whitecolor),
                 ),
               ),
@@ -105,7 +105,7 @@ class _UsernameandPasswordPageState extends ConsumerState<UsernameandPasswordPag
           ),
           hintText: LocaleKeys.hint_password.tr(),
           validator: (value) {
-            if (value == null || value.isEmpty) {
+            if (value == null || (value as String).isEmpty) {
               return 'Please enter confirm password';
             }
             if (value != widget.passwordController.text) {
@@ -123,11 +123,11 @@ class _UsernameandPasswordPageState extends ConsumerState<UsernameandPasswordPag
           //     obsecureConfirmPassword.value = !obsecureConfirmPassword.value;
           //   },
           // ),
-         
-           maxLines: 1,
-           onPressed: () {
-              obsecureConfirmPassword.value = !obsecureConfirmPassword.value;
-            },
+
+          maxLines: 1,
+          onPressed: () {
+            obsecureConfirmPassword.value = !obsecureConfirmPassword.value;
+          },
           obscureText: obsecureConfirmPassword.value,
         );
       },
@@ -165,7 +165,7 @@ class _UsernameandPasswordPageState extends ConsumerState<UsernameandPasswordPag
           ),
           hintText: LocaleKeys.hint_password.tr(),
           validator: (value) {
-            if (value!.isEmpty) {
+            if (value == null || (value as String).isEmpty) {
               return 'Please enter a password';
             }
             // // Password validation rules
@@ -174,10 +174,10 @@ class _UsernameandPasswordPageState extends ConsumerState<UsernameandPasswordPag
             // }
             return null;
           },
-             maxLines: 1,
-           onPressed: () {
-              obsecurePassword.value = !obsecurePassword.value;
-            },
+          maxLines: 1,
+          onPressed: () {
+            obsecurePassword.value = !obsecurePassword.value;
+          },
           obscureText: obsecurePassword.value,
         );
       },
@@ -216,7 +216,7 @@ class _UsernameandPasswordPageState extends ConsumerState<UsernameandPasswordPag
         ),
       ),
       validator: (value) {
-        if (value == null || value.isEmpty) {
+        if (value == null || (value as String).isEmpty) {
           return "Username  can't be empty";
         }
         // if (value.length < 3) {
@@ -227,7 +227,6 @@ class _UsernameandPasswordPageState extends ConsumerState<UsernameandPasswordPag
         // }
         return null;
       },
-     
     );
   }
 }

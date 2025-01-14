@@ -16,11 +16,11 @@ import 'package:flutter_starter_base_app/src/features/report/presentation/bar_ba
 class BarView extends ConsumerWidget {
   final List<ReportData> reportData;
 
-  const BarView({super.key, required this.reportData});
+  const BarView({required this.reportData, super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(triggerPage);
-    bool reportByCost = ref.read(reportBy) == ReportBy.cost;
+    var reportByCost = ref.read(reportBy) == ReportBy.cost;
 
     final barViewCalculator = BarViewCalculator(
         values: reportData
@@ -42,12 +42,12 @@ class BarView extends ConsumerWidget {
                               .toList()))
                 ] +
                 reportData.map((ReportData reportData) {
-                  double homeTotal = reportData.x;
-                  double publicTotal = reportData.y;
-                  double total = homeTotal + publicTotal;
-                  double flexTot = barViewCalculator.calculateFlexValue(total);
-                  double flexHome = total <= 0 ? 0 : flexTot * homeTotal / total;
-                  double flexPublic = total <= 0 ? 0 : flexTot * publicTotal / total;
+                  var homeTotal = reportData.x;
+                  var publicTotal = reportData.y;
+                  var total = homeTotal + publicTotal;
+                  var flexTot = barViewCalculator.calculateFlexValue(total);
+                  var flexHome = total <= 0 ? 0 : flexTot * homeTotal / total;
+                  var flexPublic = total <= 0 ? 0 : flexTot * publicTotal / total;
                   return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     Tooltip(
                         decoration:
@@ -73,7 +73,7 @@ class BarView extends ConsumerWidget {
                                   Flexible(
                                       flex: (flexPublic * 100).toInt(),
                                       child: Container(color: CustomColors().reportBarGray)),
-                                Spacer(flex: (((1 - flexTot)) * 100).toInt())
+                                Spacer(flex: ((1 - flexTot) * 100).toInt())
                               ])
                             ]))),
                     const SizedBox(height: 10),

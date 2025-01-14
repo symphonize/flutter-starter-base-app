@@ -5,7 +5,7 @@ import 'package:flutter_starter_base_app/src/common_widgets/basic_page_importer.
 
 class HamburgerMenu extends ConsumerWidget {
   final List<HamburgerMenuItem> menuItemList;
-  const HamburgerMenu({super.key, required this.menuItemList});
+  const HamburgerMenu({required this.menuItemList, super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) => SafeArea(
       child: PopupMenuButton<HamburgerMenuItem>(
@@ -15,8 +15,8 @@ class HamburgerMenu extends ConsumerWidget {
           padding: const EdgeInsets.all(0),
           onSelected: (HamburgerMenuItem item) => item.function(),
           itemBuilder: (_) {
-            List<PopupMenuEntry<HamburgerMenuItem>> list = List.empty(growable: true);
-            for (int i = 0; i < menuItemList.length; i++) {
+            var list = List<PopupMenuEntry<HamburgerMenuItem>>.empty(growable: true);
+            for (var i = 0; i < menuItemList.length; i++) {
               list.add(PopupMenuItem<HamburgerMenuItem>(height: 25, value: menuItemList[i], child: menuItemList[i]));
               if (i < menuItemList.length - 1) list.add(const PopupMenuDivider());
             }
@@ -29,7 +29,7 @@ class HamburgerMenuItem extends StatelessWidget {
   final Widget? tailIcon;
   final Widget? leadIcon;
   final Function function;
-  const HamburgerMenuItem({super.key, required this.title, required this.function, this.leadIcon, this.tailIcon});
+  const HamburgerMenuItem({required this.title, required this.function, super.key, this.leadIcon, this.tailIcon});
   @override
   Widget build(BuildContext context) => Row(children: [
         if (leadIcon != null) leadIcon!,

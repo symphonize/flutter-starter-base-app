@@ -59,8 +59,8 @@ class SetupScreenState extends State<SetupScreen> {
   }
 
   Widget _buildSetupBox(int index, String title, String subtitle) {
-    bool isCompleted = index <= _completedStep;
-    bool isNextStep = index == _completedStep + 1;
+    var isCompleted = index <= _completedStep;
+    var isNextStep = index == _completedStep + 1;
     Color boxColor;
     Color textColor;
     IconData icon;

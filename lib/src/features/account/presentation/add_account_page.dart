@@ -20,7 +20,7 @@ class AddAccountPage extends ConsumerWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.10,
               ),
-              Image.asset("assets/images/house.png"),
+              Image.asset('assets/images/house.png'),
               Padding(
                 padding:
                   const  EdgeInsets.only(left: 50.0, right: 50, top: 50, bottom: 10),

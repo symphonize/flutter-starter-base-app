@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_starter_base_app/src/api/api_endpoints.dart';
 import 'package:flutter_starter_base_app/src/api/base_api.dart';
 import 'package:flutter_starter_base_app/src/api/dio_interceptor.dart';
@@ -12,9 +10,7 @@ import 'package:flutter_starter_base_app/src/features/report/domain/report_data.
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-
 class APIMock implements BaseAPI {
-
   final dio = Dio(BaseOptions());
 
   APIMock() {
@@ -23,11 +19,11 @@ class APIMock implements BaseAPI {
 
   @override
   Future<List<Contact>> getData() async {
-    List<Contact> data = List.empty(growable: true);
+    var data = List<Contact>.empty(growable: true);
     try {
       var contactsJson = (await dio.get(APIEndpoint.data)).data;
-      for (int i = 0; i < contactsJson.length; i++) {
-        data.add(Contact.fromJson(contactsJson[i]));
+      for (var i = 0; i < (contactsJson as List<dynamic>).length; i++) {
+        data.add(Contact.fromJson(contactsJson[i] as Map<String, dynamic>));
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -43,8 +39,8 @@ class APIMock implements BaseAPI {
       return;
     } catch (e, stacktrace) {
       if (e is DioException && e.response != null) {
-        print('Error response domain in Api: ${e.response?.data}');
-        throw e; // rethrow the exception to be caught by the calling method
+        debugPrint('Error response domain in Api: ${e.response?.data}');
+        rethrow; // rethrow the exception to be caught by the calling method
       }
       debugPrint('Error: $e\nStacktrace: $stacktrace');
       throw Exception('Failed to authenticate user: $e');
@@ -59,8 +55,8 @@ class APIMock implements BaseAPI {
       return true;
     } catch (e, stacktrace) {
       if (e is DioException && e.response != null) {
-        print('Error response domain in Api: ${e.response?.data}');
-        throw e; // rethrow the exception to be caught by the calling method
+        debugPrint('Error response domain in Api: ${e.response?.data}');
+        rethrow; // rethrow the exception to be caught by the calling method
       }
       debugPrint('Error: $e\nStacktrace: $stacktrace');
       throw Exception('Failed to authenticate user: $e');
@@ -75,8 +71,8 @@ class APIMock implements BaseAPI {
       return APIResponse.success();
     } catch (e, stacktrace) {
       if (e is DioException && e.response != null) {
-        print('Error response domain in Api: ${e.response?.data}');
-        throw e; // rethrow the exception to be caught by the calling method
+        debugPrint('Error response domain in Api: ${e.response?.data}');
+        rethrow; // rethrow the exception to be caught by the calling method
       }
       debugPrint('Error: $e\nStacktrace: $stacktrace');
       throw Exception('Failed to authenticate user: $e');
@@ -91,8 +87,8 @@ class APIMock implements BaseAPI {
       return APIResponse.success();
     } catch (e, stacktrace) {
       if (e is DioException && e.response != null) {
-        print('Error response domain in Api: ${e.response?.data}');
-        throw e; // rethrow the exception to be caught by the calling method
+        debugPrint('Error response domain in Api: ${e.response?.data}');
+        rethrow; // rethrow the exception to be caught by the calling method
       }
       debugPrint('Error: $e\nStacktrace: $stacktrace');
       throw Exception('Failed to authenticate user: $e');
@@ -101,11 +97,10 @@ class APIMock implements BaseAPI {
 
   @override
   Future<List<Country>> getCountries() async {
-    List<Country> countries = List.empty(growable: true);
+    var countries = List<Country>.empty(growable: true);
     try {
-      var countriesJson = (await dio.get(APIEndpoint.countries))
-          .data['data']['countries'];
-      for (int i = 0; i < countriesJson.length; i++) {
+      var countriesJson = (await dio.get(APIEndpoint.countries)).data['data']['countries'];
+      for (var i = 0; i < (countriesJson as List<Map<String, dynamic>>).length; i++) {
         countries.add(Country.fromJson(countriesJson[i]));
       }
     } catch (e) {
@@ -117,8 +112,7 @@ class APIMock implements BaseAPI {
   @override
   Future<AccountDetails> getAccountDetails() async {
     try {
-      return AccountDetails.fromJson(
-          (await dio.get(APIEndpoint.accountDetails)).data['data']);
+      return AccountDetails.fromJson((await dio.get(APIEndpoint.accountDetails)).data['data'] as Map<String, dynamic>);
     } catch (e) {
       debugPrintStack();
     }
@@ -139,11 +133,10 @@ class APIMock implements BaseAPI {
 
   @override
   Future<List<State>> getStates({required String countryName}) async {
-    List<State> states = List.empty(growable: true);
+    var states = List<State>.empty(growable: true);
     try {
-      var statesJson = (await dio.get(APIEndpoint.states(countryName)))
-          .data['data']['states'];
-      for (int i = 0; i < statesJson.length; i++) {
+      var statesJson = (await dio.get(APIEndpoint.states(countryName))).data['data']['states'];
+      for (var i = 0; i < (statesJson as List<Map<String, dynamic>>).length; i++) {
         states.add(State.fromJson(statesJson[i]));
       }
     } catch (e) {
@@ -155,11 +148,9 @@ class APIMock implements BaseAPI {
   @override
   Future<List<ReportData>> getReportData(String timeWindow) async {
     try {
-      List<ReportData> vehicleList = List.empty(growable: true);
-      var reportListJson = (await dio.get(
-          APIEndpoint.getReportData(timeWindow)))
-          .data['data']['vehicles'];
-      for (int i = 0; i < reportListJson.length; i++) {
+      var vehicleList = List<ReportData>.empty(growable: true);
+      var reportListJson = (await dio.get(APIEndpoint.getReportData(timeWindow))).data['data']['vehicles'];
+      for (var i = 0; i < (reportListJson as List<Map<String, dynamic>>).length; i++) {
         vehicleList.add(ReportData.fromJson(reportListJson[i]));
       }
       return vehicleList;
@@ -176,17 +167,15 @@ class APIMock implements BaseAPI {
     return true;
   }
 
+  @override
   Future<EULA> getEULA(String languageCode) async {
     await Future.delayed(const Duration(seconds: 3));
-    return EULA.fromJson(
-        (await dio.get(APIEndpoint.accountLatestEULA(languageCode)))
-            .data['data']);
+    return EULA.fromJson((await dio.get(APIEndpoint.accountLatestEULA(languageCode))).data['data'] as Map<String, dynamic>);
   }
-
 
   Future<dynamic> getInformationText(String languageCode) async {
     try {
-      Response response = (await dio.get(APIEndpoint.infoText(languageCode)));
+      var response = await dio.get(APIEndpoint.infoText(languageCode));
       return response.data['data'];
     } on DioException catch (e) {
       debugPrint(e.message);
@@ -198,4 +187,3 @@ class APIMock implements BaseAPI {
     throw Exception();
   }
 }
-

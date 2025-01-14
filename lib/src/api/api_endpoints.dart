@@ -1,7 +1,7 @@
 import 'package:flutter_starter_base_app/src/constants/env_constants.dart';
 
 class APIEndpoint {
-  static const apiPath = "${EnvValues.apiEnv}/${EnvValues.apiVersion}";
+  static const apiPath = '${EnvValues.apiEnv}/${EnvValues.apiVersion}';
 
   // Example API Endpoint Path
   static const String data = '$apiPath/data';
@@ -43,6 +43,6 @@ class APIEndpoint {
     if (apiHost == null || apiHost.isEmpty) {
       throw Exception('Cannot build API Endpoint');
     }
-    return "$apiHost/";
+    return '$apiHost/';
   }
 }

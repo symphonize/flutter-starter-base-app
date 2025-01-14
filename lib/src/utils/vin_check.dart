@@ -4,7 +4,7 @@ bool isValidVIN(String vin) {
   if (vin.length != 17) return false;
 
   // Define weights for VIN characters
-  final Map<String, int> weights = {
+  final weights = <String, int>{
     'A': 1,
     'B': 2,
     'C': 3,
@@ -41,17 +41,17 @@ bool isValidVIN(String vin) {
   };
 
   // Define the positions of the weights in the VIN
-  final List<int> positions = [8, 7, 6, 5, 4, 3, 2, 10, 0, 9, 8, 7, 6, 5, 4, 3, 2];
+  final positions = <int>[8, 7, 6, 5, 4, 3, 2, 10, 0, 9, 8, 7, 6, 5, 4, 3, 2];
 
-  int sum = 0;
-  for (int i = 0; i < 17; i++) {
-    String char = vin[i];
+  var sum = 0;
+  for (var i = 0; i < 17; i++) {
+    var char = vin[i];
     if (!weights.containsKey(char)) return false;
-    sum += ((weights[char] ?? 0) * positions[i]);
+    sum += (weights[char] ?? 0) * positions[i];
   }
 
   // Check digit
-  int checkDigit = sum % 11;
+  var checkDigit = sum % 11;
   if (checkDigit == 10) return vin[8] == 'X';
   return checkDigit == int.parse(vin[8]);
 }

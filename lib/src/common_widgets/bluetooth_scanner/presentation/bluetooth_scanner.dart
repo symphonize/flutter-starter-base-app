@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -10,7 +9,7 @@ import 'package:flutter_starter_base_app/src/constants/theme_data.dart';
 
 class BluetoothHandler extends ConsumerStatefulWidget {
   final AutoDisposeStateProvider<ScanResult?> scanResultProvider;
-  const BluetoothHandler({super.key, required this.scanResultProvider});
+  const BluetoothHandler({required this.scanResultProvider, super.key});
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _BluetoothHandlerState();
 }
@@ -20,7 +19,7 @@ class _BluetoothHandlerState extends ConsumerState<BluetoothHandler> {
     ref.read(ScanResultState.provider.notifier).clear();
     setState(() {});
     FlutterBluePlus.setLogLevel(LogLevel.error, color: true);
-    StreamSubscription<List<ScanResult>> subscription = FlutterBluePlus.onScanResults.listen((results) {
+    var subscription = FlutterBluePlus.onScanResults.listen((results) {
       if (results.isNotEmpty && results.last.device.advName.isNotEmpty) {
         ref.read(ScanResultState.provider.notifier).addIfNotPresent(results.last);
         setState(() {});

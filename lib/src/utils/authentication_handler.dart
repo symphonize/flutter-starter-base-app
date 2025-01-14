@@ -16,9 +16,9 @@ class AuthenticationHandler {
       .write(key: _accessTokenKey, value: accessToken)
       .then((_) async => await _storage.write(key: _refreshTokenKey, value: refreshToken));
   Future<bool> isTokenExpired() async {
-    String? tokenOrNull = await getAccessToken();
+    var tokenOrNull = await getAccessToken();
     if (tokenOrNull == null || tokenOrNull.isEmpty) return true;
-    DateTime? expiryDateOrNull = Jwt.getExpiryDate(tokenOrNull);
+    var expiryDateOrNull = Jwt.getExpiryDate(tokenOrNull);
     if (expiryDateOrNull == null) return true;
     return DateTime.now().toUtc().isAfter(expiryDateOrNull);
   }

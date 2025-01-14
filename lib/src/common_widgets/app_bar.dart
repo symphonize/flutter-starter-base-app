@@ -5,9 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_starter_base_app/src/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_starter_base_app/src/constants/svg_loader.dart';
 import 'package:flutter_starter_base_app/src/common_widgets/hamburger_menu.dart';
 
 class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
@@ -22,8 +20,7 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize;
   const CustomAppBar({
-    super.key,
-    required this.titleWidget,
+    required this.titleWidget, super.key,
     this.automaticallyImplyLeading = false,
     this.leading,
     this.showHamburgerMenu = true,
@@ -53,13 +50,13 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
                   child: HamburgerMenu(
                       menuItemList: [
                           HamburgerMenuItem(
-                              title: "Navigation Example",
+                              title: 'Navigation Example',
                               function: () async {
                                     if (false) {
                                       context.push('/${AppRoute.addCharger.name}');
                                     } else {
                                       ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(content: Text("You are not able to Navigate there")));
+                                          const SnackBar(content: Text('You are not able to Navigate there')));
                                     }
                               }
                           ),

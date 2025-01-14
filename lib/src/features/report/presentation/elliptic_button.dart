@@ -8,7 +8,7 @@ class EllipticButton extends ConsumerWidget {
   final ReportBy setReportByTo;
   final String text;
   final bool mirror;
-  const EllipticButton({super.key, required this.setReportByTo, required this.text, this.mirror = false});
+  const EllipticButton({required this.setReportByTo, required this.text, super.key, this.mirror = false});
   @override
   Widget build(BuildContext context, WidgetRef ref) => Transform.flip(
       flipX: mirror,

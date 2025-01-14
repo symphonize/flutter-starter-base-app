@@ -12,10 +12,7 @@ class TextInputField extends ConsumerWidget {
   final AutoDisposeStateProvider<String> textProvider;
 
   const TextInputField({
-    super.key,
-    required this.textProvider,
-    required this.hintText,
-    required this.mainText,
+    required this.textProvider, required this.hintText, required this.mainText, super.key,
     this.inputFormatter,
     this.validator,
   });

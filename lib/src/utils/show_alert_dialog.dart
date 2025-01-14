@@ -3,9 +3,8 @@ part of 'alert_dialogs.dart';
 Future<bool?> showAlertDialog({
   required BuildContext context,
   required String title,
-  String? content,
+  required String defaultActionText, String? content,
   String? cancelActionText,
-  required String defaultActionText,
 }) async {
   if (kIsWeb || !Platform.isIOS) {
     return showDialog(

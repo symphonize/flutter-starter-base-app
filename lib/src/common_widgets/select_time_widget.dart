@@ -14,7 +14,7 @@ class SelectTimeWidget extends StatelessWidget {
       backgroundColor: CustomColors().darkGray,
       appBar: CustomAppBar(
           showBackButton: true,
-          titleWidget: Text(pageTitle != null ? pageTitle! : "Alert Time"),
+          titleWidget: Text(pageTitle != null ? pageTitle! : 'Alert Time'),
           showHamburgerMenu: false),
       body: Column(
         children: [

@@ -7,10 +7,7 @@ import 'package:flutter_starter_base_app/src/utils/format.dart';
 
 class DateTimePicker extends StatelessWidget {
   const DateTimePicker({
-    super.key,
-    required this.labelText,
-    required this.selectedDate,
-    required this.selectedTime,
+    required this.labelText, required this.selectedDate, required this.selectedTime, super.key,
     this.onSelectedDate,
     this.onSelectedTime,
   });

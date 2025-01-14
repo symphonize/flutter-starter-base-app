@@ -10,8 +10,17 @@
 include: package:flutter_lints/flutter.yaml
 
 analyzer:
+  exclude:
+    - "**/*.g.dart"
+  language:
+    strict-casts: true
+    strict-raw-types: true
   plugins:
-    - custom_lint
+    - flutter
+
+custom_lint:
+  debug: true
+  verbose: true
 
 linter:
   # The lint rules applied to this project can be customized in the
@@ -26,8 +35,43 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
-
+    avoid_print: true # Uncomment to disable the `avoid_print` rule
+    annotate_overrides: true
+    close_sinks: true
+    cancel_subscriptions: true
+    prefer_single_quotes: true # Uncomment to enable the `prefer_single_quotes` rule
+    prefer_final_fields: true
+    prefer_const_constructors: true # Prefer using const constructors
+    avoid_annotating_with_dynamic: true
+    await_only_futures: true
+    control_flow_in_finally: true
+    valid_regexps: true
+    avoid_empty_else: true
+    throw_in_finally: true
+    avoid_returning_null_for_void: true
+    prefer_null_aware_operators: true
+    non_constant_identifier_names: true
+    empty_catches: true
+    secure_pubspec_urls: true
+    unnecessary_lambdas: true
+    constant_identifier_names: true
+    prefer_foreach: true
+    use_rethrow_when_possible: true
+    avoid_function_literals_in_foreach_calls: true
+    unnecessary_parenthesis: true
+    avoid_null_checks_in_equality_operators: true
+    sort_child_properties_last: true
+    unnecessary_raw_strings: true
+    use_setters_to_change_properties: true
+    prefer_iterable_whereType: true
+    use_key_in_widget_constructors: true
+    prefer_typing_uninitialized_variables: true
+    avoid_catching_errors: true
+    unnecessary_null_checks: true
+    avoid_catches_without_on_clauses: true
+    always_use_package_imports: true
+    avoid_relative_lib_imports: true
+    always_declare_return_types: true
+    always_put_required_named_parameters_first: true
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

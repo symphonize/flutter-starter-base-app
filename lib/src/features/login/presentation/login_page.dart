@@ -29,7 +29,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   final TextEditingController passwordController = TextEditingController(text: password);
   FocusNode _usernameFocusNode = FocusNode();
   FocusNode _passwordFocusNode = FocusNode();
-  ValueNotifier obsecurePassword = ValueNotifier(true);
+  ValueNotifier<bool> obsecurePassword = ValueNotifier(true);
 
   @override
   void initState() {
@@ -59,18 +59,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [_buildEmailField(context), _buildPasswordField()]),
-                    Column(children: [
-                      _buildLogin(context),
-                      ActionTextButton(
-                          text: LocaleKeys.btn_forgotPassword.tr(),
-                          onPressed: () => context.pushNamed(AppRoute.forgotPassword.name))
-                    ])
+                    Column(mainAxisAlignment: MainAxisAlignment.start, children: [_buildEmailField(context), _buildPasswordField()]),
+                    Column(children: [_buildLogin(context), ActionTextButton(text: LocaleKeys.btn_forgotPassword.tr(), onPressed: () => context.pushNamed(AppRoute.forgotPassword.name))])
                   ])))));
 
-  _buildAppbarBack(BuildContext context) {
+  InkWell _buildAppbarBack(BuildContext context) {
     return InkWell(
         onTap: () => context.goNamed(AppRoute.splash.name),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -83,15 +76,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ]));
   }
 
-  _buildLogin(BuildContext context) => PrimaryButton(
+  PrimaryButton _buildLogin(BuildContext context) => PrimaryButton(
       text: LocaleKeys.btn_login.tr(),
       backgroundColor: CustomColors().lightblueColor,
-      onPressed: () => _formKey.currentState!.validate()
-          ? context.pushNamed(AppRoute.loginPageTransition.name,
-              pathParameters: {'password': passwordController.text, 'username': usernameController.text})
-          : null);
+      onPressed: () =>
+          _formKey.currentState!.validate() ? context.pushNamed(AppRoute.loginPageTransition.name, pathParameters: {'password': passwordController.text, 'username': usernameController.text}) : null);
 
-  _buildPasswordField() {
+  Widget _buildPasswordField() {
     return ValueListenableBuilder(
         valueListenable: obsecurePassword,
         builder: (context, value, child) {
@@ -131,16 +122,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 errorStyle: TextStyle(color: CustomColors().red),
                 hintTextDirection: ui.TextDirection.rtl,
                 floatingLabelBehavior: FloatingLabelBehavior.never,
-                labelStyle:
-                    TextStyle(color: CustomColors().lightblueColor, fontSize: 17, fontWeight: FontWeight.normal),
+                labelStyle: TextStyle(color: CustomColors().lightblueColor, fontSize: 17, fontWeight: FontWeight.normal),
                 fillColor: CustomColors().grayColor,
                 filled: true,
                 hintText: LocaleKeys.hint_password.tr(),
-                hintStyle: TextStyle(
-                    overflow: TextOverflow.ellipsis,
-                    color: CustomColors().lightblueColor,
-                    fontSize: 17,
-                    fontWeight: FontWeight.normal),
+                hintStyle: TextStyle(overflow: TextOverflow.ellipsis, color: CustomColors().lightblueColor, fontSize: 17, fontWeight: FontWeight.normal),
                 prefixIcon: Padding(
                   padding: const EdgeInsets.only(left: 15.0, right: 10),
                   child: Row(
@@ -183,7 +169,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         });
   }
 
-  _buildEmailField(BuildContext context) {
+  CustomTextFormField _buildEmailField(BuildContext context) {
     return CustomTextFormField(
       controller: usernameController,
       focusNode: _usernameFocusNode,
@@ -215,11 +201,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ),
       ),
       validator: (value) {
-        if (value == null || value.isEmpty) {
+        if (value == null || (value as String).isEmpty) {
           return "Username can't be empty";
         }
         if (value.length < 3) {
-          return "Username must be at least 3 characters";
+          return 'Username must be at least 3 characters';
         }
         if (value.length > 25) {
           return "Username can't be more than 15 characters";

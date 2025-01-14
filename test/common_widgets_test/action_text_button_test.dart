@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group("action text button", () {
-    testWidgets("display the text correctly", (WidgetTester tester) async {
-      const text = "click here";
+  group('action text button', () {
+    testWidgets('display the text correctly', (WidgetTester tester) async {
+      const text = 'click here';
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
@@ -18,12 +18,12 @@ void main() {
       expect(find.text(text), findsOneWidget);
     });
 
-    testWidgets("onPressed is Triggered", (WidgetTester tester) async {
-      bool onpressed = false;
+    testWidgets('onPressed is Triggered', (WidgetTester tester) async {
+      var onpressed = false;
       await tester.pumpWidget(MaterialApp(
           home: Scaffold(
         body: ActionTextButton(
-          text: "Click here",
+          text: 'Click here',
           onPressed: () {
             onpressed = true;
           },

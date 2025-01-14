@@ -9,8 +9,7 @@ class DefaultContactInfoPage extends ConsumerStatefulWidget {
   final GlobalKey<FormState>? formKey;
   final TextEditingController emailController;
   final TextEditingController phoneNumberController;
-  const DefaultContactInfoPage(
-      {required this.formKey, required this.emailController, required this.phoneNumberController, super.key});
+  const DefaultContactInfoPage({required this.formKey, required this.emailController, required this.phoneNumberController, super.key});
   @override
   _DefaultContactInfoPageState createState() => _DefaultContactInfoPageState();
 }
@@ -24,6 +23,7 @@ class _DefaultContactInfoPageState extends ConsumerState<DefaultContactInfoPage>
     _emailfocusNode = FocusNode();
     _passwordfocusNode = FocusNode();
   }
+
   @override
   void dispose() {
     _emailfocusNode.dispose();
@@ -33,9 +33,9 @@ class _DefaultContactInfoPageState extends ConsumerState<DefaultContactInfoPage>
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController emailActiveController = widget.emailController;
-    final TextEditingController phoneNumberActiveController = widget.phoneNumberController;
-       return Scaffold(
+    final emailActiveController = widget.emailController;
+    final phoneNumberActiveController = widget.phoneNumberController;
+    return Scaffold(
       body: SingleChildScrollView(
         child: Form(
           key: widget.formKey,
@@ -44,7 +44,7 @@ class _DefaultContactInfoPageState extends ConsumerState<DefaultContactInfoPage>
               Padding(
                 padding: const EdgeInsets.only(top: 15, bottom: 15),
                 child: Text(
-                  "Default Contact Information",
+                  'Default Contact Information',
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: CustomColors().whitecolor),
                 ),
               ),
@@ -63,7 +63,7 @@ class _DefaultContactInfoPageState extends ConsumerState<DefaultContactInfoPage>
       controller: controller,
       focusNode: _emailfocusNode,
       textInputType: TextInputType.number,
-      hintText: "Enter Phone Number",
+      hintText: 'Enter Phone Number',
       prefixIcon: Padding(
         padding: const EdgeInsets.only(left: 15.0, right: 10),
         child: Row(
@@ -72,10 +72,7 @@ class _DefaultContactInfoPageState extends ConsumerState<DefaultContactInfoPage>
           children: [
             Text(
               'Phone Number',
-              style: TextStyle(
-                  color: CustomColors().whitecolor,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 17),
+              style: TextStyle(color: CustomColors().whitecolor, fontWeight: FontWeight.w400, fontSize: 17),
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.02,
@@ -87,9 +84,9 @@ class _DefaultContactInfoPageState extends ConsumerState<DefaultContactInfoPage>
           ],
         ),
       ),
-       inputFormatter: FilteringTextInputFormatter.digitsOnly,    
+      inputFormatter: FilteringTextInputFormatter.digitsOnly,
       validator: (value) {
-        if (value == null || value.isEmpty) {
+        if (value == null || (value as String).isEmpty) {
           return "Phone Number  can't be empty";
         }
         // if (value.length < 10) {
@@ -110,7 +107,7 @@ class _DefaultContactInfoPageState extends ConsumerState<DefaultContactInfoPage>
       controller: controller,
       focusNode: _emailfocusNode,
       textInputType: TextInputType.emailAddress,
-      hintText: "Enter Email",
+      hintText: 'Enter Email',
       prefixIcon: Padding(
         padding: const EdgeInsets.only(left: 15.0, right: 10),
         child: Row(
@@ -119,10 +116,7 @@ class _DefaultContactInfoPageState extends ConsumerState<DefaultContactInfoPage>
           children: [
             Text(
               'Email',
-              style: TextStyle(
-                   color: CustomColors().whitecolor,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 17),
+              style: TextStyle(color: CustomColors().whitecolor, fontWeight: FontWeight.w400, fontSize: 17),
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.02,
@@ -134,7 +128,7 @@ class _DefaultContactInfoPageState extends ConsumerState<DefaultContactInfoPage>
           ],
         ),
       ),
-      validator: (value) => EmailValidator.validate(value ?? '') ? null : "Please enter a valid email",
+      validator: (value) => EmailValidator.validate((value as String?) ?? '') ? null : 'Please enter a valid email',
     );
   }
 }

@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 
 class LoginPageTransition extends ConsumerWidget {
   final String username, password;
-  const LoginPageTransition({super.key, required this.password, required this.username});
+  const LoginPageTransition({required this.password, required this.username, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) =>

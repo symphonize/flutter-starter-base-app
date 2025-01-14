@@ -6,9 +6,7 @@ import 'package:flutter_starter_base_app/src/root/domain/item.dart';
 
 class SelectBuilder extends StatefulWidget {
   const SelectBuilder({
-    super.key,
-    required this.onSelect,
-    required this.items,
+    required this.onSelect, required this.items, super.key,
     this.initialSelection,
     this.multiSelect = false,
   });

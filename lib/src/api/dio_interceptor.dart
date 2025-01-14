@@ -61,5 +61,5 @@ class MockInterceptor extends Interceptor {
     }
   }
 
-  loadData(String filelName) async => jsonDecode(await rootBundle.loadString('mock/$filelName.json'));
+  Future loadData(String filelName) async => jsonDecode(await rootBundle.loadString('mock/$filelName.json'));
 }

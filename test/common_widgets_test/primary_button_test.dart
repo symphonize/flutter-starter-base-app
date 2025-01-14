@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group("Primary Button ", () {
-    testWidgets("on Pressed is triggered", (WidgetTester tester) async {
-      bool onpressed = false;
+  group('Primary Button ', () {
+    testWidgets('on Pressed is triggered', (WidgetTester tester) async {
+      var onpressed = false;
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
             body: PrimaryButton(
           onPressed: () {
             onpressed = true;
           },
-          text: "Click Me",
+          text: 'Click Me',
         )),
       ));
 
@@ -20,15 +20,15 @@ void main() {
       await tester.pump();
       expect(onpressed, isTrue);
     });
-    testWidgets("display the text correctly", (WidgetTester tester) async {
-      const buttontext = "Click Me";
+    testWidgets('display the text correctly', (WidgetTester tester) async {
+      const buttontext = 'Click Me';
       await tester.pumpWidget(MaterialApp(
           home: Scaffold(
               body: PrimaryButton(text: buttontext, onPressed: () {}))));
       expect(find.text(buttontext), findsOneWidget);
     });
 
-    testWidgets("applies background color correctly",
+    testWidgets('applies background color correctly',
         (WidgetTester tester) async {
       const color = Colors.red;
       await tester.pumpWidget(MaterialApp(

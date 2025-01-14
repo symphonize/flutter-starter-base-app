@@ -16,8 +16,8 @@ void main() {
             body: CustomStepper(
               curStep: curStep,
               totalSteps: totalSteps,
-              stepCompleteColor: Color(0xffD0BCFF),
-              inactiveColor: Color(0xffbababa),
+              stepCompleteColor: const Color(0xffD0BCFF),
+              inactiveColor: const Color(0xffbababa),
               currentStepColor: CustomColors().whitecolor,
               lineWidth: 2.0,
             ),

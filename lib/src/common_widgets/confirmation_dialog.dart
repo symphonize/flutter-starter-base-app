@@ -3,10 +3,9 @@ part of 'package:flutter_starter_base_app/src/utils/alert_dialogs.dart';
 Future<bool?> showConfirmationDialog({
   required BuildContext context,
   required String title,
-  String? content,
+  required String defaultActionText, String? content,
   String? cancelActionText,
   bool? useRootNavigator,
-  required String defaultActionText,
 }) async {
   return showDialog(
     context: context,

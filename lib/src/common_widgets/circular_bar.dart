@@ -9,7 +9,7 @@ class GradientLoadingAnimation extends ConsumerWidget {
   final double percent;
   final List<String> innerCircleTextList;
   const GradientLoadingAnimation(
-      {super.key, required this.innerCircleTextList, this.isOutOfRange = false, required this.percent});
+      {required this.innerCircleTextList, required this.percent, super.key, this.isOutOfRange = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => SizedBox(
@@ -60,7 +60,7 @@ class _CircularPaint extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Rect rect = Rect.fromCenter(
+    final rect = Rect.fromCenter(
       center: Offset(size.width / 2, size.height / 2),
       height: size.height,
       width: size.width,

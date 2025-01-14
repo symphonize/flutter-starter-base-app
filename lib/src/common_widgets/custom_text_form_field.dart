@@ -4,11 +4,9 @@ import 'package:flutter/services.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
-    super.key,
+    required this.controller, required this.textInputType, super.key,
     this.labelText,
     this.suffixIcon,
-    required this.controller,
-    required this.textInputType,
     // this.label,
     this.errorText,
     this.hintText,

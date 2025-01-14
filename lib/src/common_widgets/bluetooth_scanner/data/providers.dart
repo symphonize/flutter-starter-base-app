@@ -18,7 +18,7 @@ Future<BluetoothReponse> chargerBluetoothConnection(ChargerBluetoothConnectionRe
 class ScanResultState extends StateNotifier<List<ScanResult>> {
   ScanResultState() : super(List<ScanResult>.empty(growable: true));
   List<ScanResult> items() => state;
-  clear() => state.clear();
+  void clear() => state.clear();
   static final provider = StateNotifierProvider.autoDispose<ScanResultState, List<ScanResult>>((_) => ScanResultState());
   void addIfNotPresent(ScanResult scanResult) => state.contains(scanResult) ? null : state.add(scanResult);
 }

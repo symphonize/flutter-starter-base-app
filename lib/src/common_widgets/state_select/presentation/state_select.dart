@@ -10,7 +10,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_starter_base_app/src/common_widgets/circular_loading_animation.dart';
 
 class StateSelect extends ConsumerWidget {
-  const StateSelect({super.key, required this.countryName, this.initialSelection});
+  const StateSelect({required this.countryName, super.key, this.initialSelection});
 
   final String countryName;
   final Item? initialSelection;
@@ -19,7 +19,7 @@ class StateSelect extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     void onStateSelection(List<Item> choosenItemList) {
       if (choosenItemList.length == 1) {
-        debugPrint("choosen item: ${choosenItemList.first.label}");
+        debugPrint('choosen item: ${choosenItemList.first.label}');
         context.pop(choosenItemList.first);
         return;
       }

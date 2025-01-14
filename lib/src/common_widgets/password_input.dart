@@ -9,7 +9,7 @@ class PasswordInputField extends ConsumerWidget {
 
   final AutoDisposeStateProvider<String> password;
 
-  const PasswordInputField({super.key, required this.password, required this.hintText, required this.mainText});
+  const PasswordInputField({required this.password, required this.hintText, required this.mainText, super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) => Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
@@ -32,7 +32,7 @@ class PasswordInputField extends ConsumerWidget {
                 child: TextField(
                     autofocus: true,
                     obscureText: true,
-                    obscuringCharacter: "*",
+                    obscuringCharacter: '*',
                     cursorColor: CustomColors().primaryTextColor,
                     onChanged: (newPassword) => ref.watch(password.notifier).update((state) => newPassword),
                     style: DefaultTheme().defaultTextStyle(15).copyWith(color: CustomColors().primaryTextColor),

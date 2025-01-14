@@ -7,9 +7,7 @@ typedef ItemWidgetBuilder<T> = Widget Function(BuildContext context, T item);
 
 class ListItemsBuilder<T> extends StatelessWidget {
   const ListItemsBuilder({
-    super.key,
-    required this.data,
-    required this.itemBuilder,
+    required this.data, required this.itemBuilder, super.key,
   });
   final AsyncValue<List<T>> data;
   final ItemWidgetBuilder<T> itemBuilder;
