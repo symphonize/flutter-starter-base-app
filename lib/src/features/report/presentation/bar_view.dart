@@ -20,12 +20,8 @@ class BarView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(triggerPage);
-    var reportByCost = ref.read(reportBy) == ReportBy.cost;
 
-    final barViewCalculator = BarViewCalculator(
-        values: reportData
-            .map((ReportData reportData) => reportData.x + reportData.y)
-            .toList());
+    final barViewCalculator = BarViewCalculator(values: reportData.map((ReportData reportData) => reportData.x + reportData.y).toList());
     return Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -35,11 +31,7 @@ class BarView extends ConsumerWidget {
                       padding: const EdgeInsets.only(left: 45, right: 15, bottom: 20),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: barViewCalculator
-                              .calculateMarkings()
-                              .map((String step) =>
-                                  Text(step, style: TextStyle(color: CustomColors().lighterGrayText, fontSize: 14)))
-                              .toList()))
+                          children: barViewCalculator.calculateMarkings().map((String step) => Text(step, style: TextStyle(color: CustomColors().lighterGrayText, fontSize: 14))).toList()))
                 ] +
                 reportData.map((ReportData reportData) {
                   var homeTotal = reportData.x;
@@ -50,29 +42,19 @@ class BarView extends ConsumerWidget {
                   var flexPublic = total <= 0 ? 0 : flexTot * publicTotal / total;
                   return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     Tooltip(
-                        decoration:
-                            BoxDecoration(color: CustomColors().whitecolor, borderRadius: BorderRadius.circular(40)),
+                        decoration: BoxDecoration(color: CustomColors().whitecolor, borderRadius: BorderRadius.circular(40)),
                         triggerMode: TooltipTriggerMode.tap,
-                        richMessage:
-                                TextSpan(
-                                    text: LocaleKeys.reports_viewTrips.tr(),
-                                    style: const TextStyle(color: Colors.black),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () => context.pushNamed(AppRoute.reportTable.name, extra: reportData.label)
-                                ),
+                        richMessage: TextSpan(
+                            text: LocaleKeys.reports_viewTrips.tr(),
+                            style: const TextStyle(color: Colors.black),
+                            recognizer: TapGestureRecognizer()..onTap = () => context.pushNamed(AppRoute.reportTable.name, extra: reportData.label)),
                         child: SizedBox(
                             height: 27,
                             child: Stack(children: [
                               const BarBackgroud(),
                               Row(children: [
-                                if (flexHome > 0)
-                                  Flexible(
-                                      flex: (flexHome * 100).toInt(),
-                                      child: Container(color: CustomColors().reportBarBlue)),
-                                if (flexPublic > 0)
-                                  Flexible(
-                                      flex: (flexPublic * 100).toInt(),
-                                      child: Container(color: CustomColors().reportBarGray)),
+                                if (flexHome > 0) Flexible(flex: (flexHome * 100).toInt(), child: Container(color: CustomColors().reportBarBlue)),
+                                if (flexPublic > 0) Flexible(flex: (flexPublic * 100).toInt(), child: Container(color: CustomColors().reportBarGray)),
                                 Spacer(flex: ((1 - flexTot) * 100).toInt())
                               ])
                             ]))),
