@@ -20,7 +20,7 @@ SEPARATOR=$(printf '%*s' "$TERMINAL_WIDTH" '' | tr ' ' '═')
 # Process the input arguments to extract dev/prod/staging and handle the rest: Array to store the remaining arguments
 processed_args=()
 
-on_auto_mode=false
+on_auto_mode=
 
 # Function to update the separator line whenever the terminal width changes
 update_separator() { SEPARATOR=$(printf '%*s' "$(tput cols)" '' | tr ' ' '═'); }
