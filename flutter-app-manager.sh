@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# Version:
+# Metadata
+# Version: 2025.03.398914+845b66d
 
 # Path to the project directory
 PROJECT_PATH="$(pwd)"
@@ -575,11 +576,11 @@ main() {
               return 0
               ;;
           create-app)
-              create-app || log_error "Error running $1"
+              create_app || log_error "Error running $1"
               return 0
               ;;
           create-splash)
-              splash-gen || log_error "Error running $1"
+              splash_gen || log_error "Error running $1"
               return 0
               ;;
           create-icon)
