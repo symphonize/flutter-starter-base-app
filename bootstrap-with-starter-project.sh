@@ -72,21 +72,4 @@ echo -e "$(log_green "$SEPARATOR")\n"
 # Inform user of success
 echo "The destination [${DESTINATION_PATH}] has been successfully bootstrapped with the starter project."
 cd $DESTINATION_PATH
-ENV_DIR=".env"
-ENV_FILE="$ENV_DIR/dev.json"
-mkdir -p "$ENV_DIR"
-# Create or overwrite the dev.json file with sample content
-cat >"$ENV_FILE" <<EOF
-{
-  "API_URL": "https://api.example.com",
-  "API_VERSION": {
-    "HOST": "localhost",
-    "PORT": 5432,
-    "USER": "username",
-    "PASSWORD": "password"
-  },
-  "LOG_LEVEL": "debug"
-}
-EOF
 chmod +x setup.sh
-sh ./setup.sh "full-auto"
