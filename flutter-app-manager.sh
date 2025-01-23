@@ -25,10 +25,56 @@ processed_args=()
 on_auto_mode=
 
 # Function to update the separator line whenever the terminal width changes
-update_separator() { SEPARATOR=$(printf '%*s' "$(tput cols)" '' | tr ' ' '═'); }
+update_separator() {
+  SEPARATOR=$(printf '%*s' "$(tput cols)" '' | tr ' ' '═');
+}
 
-# Function to update the terminal width variable
-update_width() { TERMINAL_WIDTH=$(tput cols); }
+# Colors for output
+log_prompt() {
+  local log_type="$1"
+  local message="$2"
+
+  # Define color codes for prompt text
+  case "$log_type" in
+    bold) color="\033[1;37m" ;;  # Bold White
+    success) color="\033[1;32m" ;;  # Bold Green
+    warning) color="\033[1;33m" ;;  # Bold Yellow
+    error) color="\033[1;31m" ;;  # Bold Red
+    cyan) color="\033[1;36m" ;;  # Bold Cyan
+    blue) color="\033[1;34m" ;;  # Bold Blue
+    magenta) color="\033[1;35m" ;;  # Bold Magenta
+    *) color="\033[0m" ;;  # Default (no color)
+  esac
+
+  # Return the formatted prompt text
+  echo -e "${color}${message}\033[0m"
+}
+
+log_message() {
+  local log_type="$1"
+  local message="$2"
+
+  # Use log_prompt for consistent formatting
+  echo "$(log_prompt "$log_type" "$message")"
+}
+
+# Wrapper functions for log_message
+log_header() {
+  log_message "bold" "$1"
+}
+
+log_success() {
+  log_message "success" "$1"
+}
+
+log_warning() {
+  log_message "warning" "$1"
+}
+
+log_error() {
+  log_message "error" "$1"
+}
+
 
 # Function to log informational messages in white
 log_white() { echo -e "\033[37m$1\033[0m"; }
@@ -90,19 +136,83 @@ help() {
     echo -e "\n$(log_bold_magenta 'NOTE: If non-flutter libraries/packages are not recognized, you might need to reload the IDE')\n"
     echo -e "\n$(log_white 'To exit the application, type "exit".')\n"
 }
-usage() {
-    echo -e "$(log_bold_blue "$SEPARATOR")\n"
-    echo -e "$(log_bold_magenta 'Commands:')"
-    echo -e "$(log_white " [1] create")"
-    echo -e "$(log_white " [2] run")"
-    echo -e "$(log_white " [3] build")"
-    echo -e "$(log_white " [4] test")"
-    echo -e "$(log_white " [5] clean")"
-    echo -e "$(log_white " [6] deploy")"
-    echo -e "$(log_white " [7] fvm_info")"
-    echo -e "$(log_white " [8] help")"
-    echo -e "$(log_white " [9] exit")"
-    echo -e "$(log_white " dev | staging | prod")"
+
+# Helper function to format and display a single menu item
+format_menu_item() {
+  local number="$1"
+  local item="$2"
+  local delimiter="|"
+
+  # Extract the option and description using the custom delimiter
+  IFS="$delimiter" read -r option description <<< "$item"
+
+  # Print the formatted menu item with dynamic numbering
+  printf "$(log_white ' %-3s %-25s %s\n')" "$number)" "$option" "$description"
+}
+
+
+interactive_menu() {
+
+  # Define menu items globally
+  local menu_items=(
+    "Create|Gives the options of thing this script supports creation of"
+    "Run|Run the Flutter app on target device [emulator-5554]"
+    "Build Application|Calls all the Required builders fully compile the application "
+    "test|Run tests for the Flutter app"
+    "Clean|Clean the build directory"
+    "Package App Release|This will build and Sign a releasable App for the App Store"
+    "FVM Info|This will display the associated environment configuration to determine if it is configured correctly"
+  )
+
+  while true; do
+
+  echo -e "$(log_bold_blue "\n$SEPARATOR")\n"
+  echo -e "$(log_bold_white "Flutter App Manager ($ENVIRONMENT)\n")"
+  echo -e "$(log_bold_blue "$SEPARATOR")\n"
+
+  # Header
+  log_bold_cyan "Commands:"
+
+  # Loop through menu items and format each one dynamically
+  printf "\n"
+  local count=1
+  for item in "${menu_items[@]}"; do
+    format_menu_item "$count" "$item"
+    count=$((count + 1))
+  done
+
+  format_menu_item "Q" "Quit|Exit the application"
+
+  read -r -p "$(log_yellow "\nPlease select an option: ")" input
+
+  case "$input" in
+  1) create_menu || log_error "Error running $input"
+      ;;
+  2) run ||  log_error "Error running $input"
+      ;;
+  3)
+      build || echo -e "$(log_bold_red "Error running $input")"
+      ;;
+  4)
+      test || echo -e "$(log_bold_red "Error running $input")"
+      ;;
+  5)
+      clean || echo -e "$(log_bold_red "Error running $input")"
+      ;;
+  6)
+      deploy || echo -e "$(log_bold_red "Error running $input")"
+      ;;
+  7) fvm_info || log_error "Error running $input"
+      ;;
+  q | Q | exit)
+      exit || echo -e "$(log_bold_red "Error running $input")"
+      ;;
+  *)
+      echo -e "\n$(log_red "$SEPARATOR")\n"
+      echo -e "$(log_red 'Invalid option. Please try again or type "exit" to exit.')"
+      ;;
+  esac
+  done
 }
 create_env_if_missing() {
     ENV_DIR=$(dirname "$ENV_FILE")
@@ -133,7 +243,54 @@ create_platform_specific_files() {
         return 1
     fi
 }
-create() {
+create_menu() {
+
+  # Define menu items globally
+  local menu_items=(
+    "Create App|Creates a Brand new Flutter App using our standards"
+    "Create Icon|Creates a new Icon for the Mobile App"
+    "Create Splash|Creates the Splash Screen for the Mobile App"
+  )
+
+  while true; do
+
+  echo -e "$(log_bold_blue "\n$SEPARATOR")\n"
+  echo -e "$(log_bold_white "Flutter App Manager ($ENVIRONMENT) => Create Menu\n")"
+  echo -e "$(log_bold_blue "$SEPARATOR")\n"
+
+  # Header
+  log_bold_cyan "Commands:"
+
+  # Loop through menu items and format each one dynamically
+  printf "\n"
+  local count=1
+  for item in "${menu_items[@]}"; do
+    format_menu_item "$count" "$item"
+    count=$((count + 1))
+  done
+  format_menu_item "C" "Cancel|Go back to previous menu"
+
+  read -r -p "$(log_yellow "\nPlease select an option: ")" input
+    case "$input" in
+      1) create_app || log_error "Error running $input"
+          ;;
+      2) icon_gen ||  log_error "Error running $input"
+          ;;
+      3) splash_gen || echo -e "$(log_bold_red "Error running $input")"
+          ;;
+      c|C) return
+          ;;
+      *)
+          echo -e "\n$(log_red "$SEPARATOR")\n"
+          echo -e "$(log_red 'Invalid option. Please try again or type "exit" to exit.')"
+          ;;
+    esac
+
+  done
+
+}
+
+create_app() {
     echo -e "\n$(log_bold_magenta "$SEPARATOR")\n"
     create_env_if_missing
     create_fvm_if_missing
@@ -141,59 +298,60 @@ create() {
     create_platform_specific_files
     build
 }
+
 fvm_info() {
     fvm doctor | while IFS= read -r line; do
         echo -e "$(log_green "$line")"
     done
 }
+# Create FVM if missing
 create_fvm_if_missing() {
-    if [ ! -f "$CONFIG_FILE" ]; then
-        echo "Error: Configuration file '$CONFIG_FILE' is missing."
-        echo "Please ensure the file exists and contains the required Flutter version."
-        if ! command -v fvm &>/dev/null; then
-            echo "$(log_red 'FVM is not installed. Please install it using Homebrew.')"
-            echo "$(log_yellow 'Run the following command to install FVM:')"
-            echo "$(log_cyan 'brew install fvm')"
-            # Prompt user to install FVM
-            echo "$(log_yellow 'Would you like to install FVM now? (y/n)')"
-            read -r response
-            if [[ "$response" =~ ^[Yy]$ ]]; then
-                if command -v brew &>/dev/null; then
-                    brew install fvm
-                    if [ $? -ne 0 ]; then
-                        echo "$(log_red 'Failed to install FVM. Please try installing it manually.')"
-                        return 1
-                    fi
-                    echo "$(log_green 'FVM installed successfully.')"
-                else
-                    echo "$(log_red 'Homebrew is not installed. Please install Homebrew first by visiting https://brew.sh.')"
-                    return 1
-                fi
-            else
-                echo "$(log_red 'Exiting. Please install FVM and try again.')"
-                return 1
-            fi
-        fi
-        echo "$(log_white 'Available stable Flutter versions:')"
-        fvm releases
-        echo "$(log_yellow 'Would you like to create a new configuration file? (y/n)')"
-        read -r response
-        if [[ "$response" =~ ^[Yy]$ ]]; then
-            echo "$(log_yellow 'Please select a Flutter version from the list above:')"
-            read -r selected_version
-            echo "$(log_green "Configuration file '$CONFIG_FILE' created with version '$selected_version'.")"
-            fvm use $selected_version
+  if [ ! -f "$CONFIG_FILE" ]; then
+    log_error "Configuration file '$CONFIG_FILE' is missing."
+    log_warning "Please ensure the file exists and contains the required Flutter version."
+    if ! command_exists fvm; then
+      log_error "FVM is not installed. Please install it using Homebrew."
+      log_warning "Run the following command to install FVM:"
+      log_cyan "brew install fvm"
+      read -r -p "$(log_prompt 'yellow' 'Would you like to install FVM now? (y/n): ')" response
+      if [[ "$response" =~ ^[Yy]$ ]]; then
+        if command_exists brew; then
+          brew install fvm
+          if [ $? -ne 0 ]; then
+            log_error "Failed to install FVM. Please try installing it manually."
+            return 1
+          fi
+          log_success "FVM installed successfully."
         else
-            echo "$(log_red 'Exiting. Please create the configuration file manually.')"
-            return 1
+          log_error "Homebrew is not installed. Please install Homebrew first by visiting https://brew.sh."
+          return 1
         fi
-        if ! command -v fvm &>/dev/null; then
-            echo "$(log_red 'FVM is not installed. Please install FVM first by running:')"
-            echo "$(log_yellow 'flutter pub global activate fvm')"
-            return 1
-        fi
+      else
+        log_error "Exiting. Please install FVM and try again."
+        return 1
+      fi
     fi
+  fi
+  echo "$(log_white 'Available stable Flutter versions:')"
+  fvm releases
+  echo "$(log_yellow 'Would you like to create a new configuration file? (y/n)')"
+  read -r response
+  if [[ "$response" =~ ^[Yy]$ ]]; then
+      echo "$(log_yellow 'Please select a Flutter version from the list above:')"
+      read -r selected_version
+      echo "$(log_green "Configuration file '$CONFIG_FILE' created with version '$selected_version'.")"
+      fvm use $selected_version
+  else
+      echo "$(log_red 'Exiting. Please create the configuration file manually.')"
+      return 1
+  fi
+  if ! command -v fvm &>/dev/null; then
+      echo "$(log_red 'FVM is not installed. Please install FVM first by running:')"
+      echo "$(log_yellow 'flutter pub global activate fvm')"
+      return 1
+  fi
 }
+
 deploy_prep() { build; }
 deploy() {
     echo -e "\n$(log_green "$SEPARATOR")\n"
@@ -404,70 +562,40 @@ main() {
         esac
     done
     set -- "${processed_args[@]}"
-    echo -e "$(log_bold_cyan "\\nSetting the $ENVIRONMENT environment\n")"
-    while true; do
-        update_width
-        update_separator
-        if [[ $# -lt 1 ]]; then
-            usage
-            echo
-            echo -e "$(log_yellow 'Please select an option:')"
-            echo
-            read -r input
-            case "$input" in
-            1 | create)
-                create || echo -e "$(log_bold_red "Error running $input")"
-                ;;
-            2 | run)
-                run || echo -e "$(log_bold_red "Error running $input")"
-                ;;
-            3 | build)
-                build || echo -e "$(log_bold_red "Error running $input")"
-                ;;
-            4 | test)
-                test || echo -e "$(log_bold_red "Error running $input")"
-                ;;
-            5 | clean)
-                clean || echo -e "$(log_bold_red "Error running $input")"
-                ;;
-            6 | deploy)
-                deploy || echo -e "$(log_bold_red "Error running $input")"
-                ;;
-            7 | fvm_info)
-                fvm_info || echo -e "$(log_bold_red "Error running $input")"
-                ;;
-            8 | help)
-                help || echo -e "$(log_bold_red "Error running $input")"
-                ;;
-            9 | exit)
-                exit || echo -e "$(log_bold_red "Error running $input")"
-                ;;
-            dev | staging | prod)
-                ENVIRONMENT=$input
-                echo -e "$(log_bold_cyan "\\nSetting the $ENVIRONMENT environment\n")"
-                ;;
-            exit)
-                echo -e "$(log_green "$SEPARATOR")\n"
-                echo -e "$(log_green 'Exiting the script.')"
-                break
-                ;;
-            *)
-                echo -e "\n$(log_red "$SEPARATOR")\n"
-                echo -e "$(log_red 'Invalid option. Please try again or type "exit" to exit.')"
-                ;;
-            esac
-        else
-            case "$1" in
-            run | create | build | test | clean | deploy | fvm_info)
-                $1 || echo -e "$(log_bold_red "Error running $1")"
-                return 0
-                ;;
-            *)
-                help
-                return 1
-                ;;
-            esac
-        fi
-    done
+#    echo -e "$(log_bold_cyan "\\nSetting the $ENVIRONMENT environment\n")"
+
+      update_separator
+      if [[ $# -lt 1 ]]; then
+          interactive_menu
+      else
+          case "$1" in
+          --help|help) show_help ;;
+          clean)
+              clean || log_error "Error running $1"
+              return 0
+              ;;
+          create-app)
+              create-app || log_error "Error running $1"
+              return 0
+              ;;
+          create-splash)
+              splash-gen || log_error "Error running $1"
+              return 0
+              ;;
+          create-icon)
+              icon_gen || log_error "Error running $1"
+              return 0
+              ;;
+          run | build | test  | deploy | fvm_info)
+              $1 || echo -e "$(log_bold_red "Error running $1")"
+              return 0
+              ;;
+          *)
+              show_help
+              return 1
+              ;;
+          esac
+      fi
+
 }
 main "$@"
