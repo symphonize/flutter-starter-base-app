@@ -72,4 +72,16 @@ echo -e "$(log_green "$SEPARATOR")\n"
 # Inform user of success
 echo "The destination [${DESTINATION_PATH}] has been successfully bootstrapped with the starter project."
 cd $DESTINATION_PATH
-chmod +x setup.sh
+chmod +x flutter-app-manager.sh
+
+detect_platform() {
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        #todo
+        echo "\nRunning on macOS\n"
+    elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
+        #todo
+        echo "\nRunning on Windows\n"
+    else
+        echo "Unknown platform"
+    fi
+}
