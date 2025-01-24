@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Metadata
-# Version: 2025.03.398914+845b66d
+# Version: 2025.03.496161+21173d2
 
 # Path to the project directory
 PROJECT_PATH="$(pwd)"
