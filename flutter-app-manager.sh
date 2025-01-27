@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Metadata
-# Version: 2025.03.496161+21173d2
+# Version: 2025.04.131193+69c561d
 
 # Path to the project directory
 PROJECT_PATH="$(pwd)"
@@ -69,11 +69,11 @@ Commands:
 7) clean                   - Clean the build directory
 8) deploy                  - Deploy the Flutter app to a device or server
 9) fvm_info                - Check the Flutter version using FVM
-10) help                   - Exits the application
+10) help                   - Displays available commands
 
 Environment Variables:
-  LOG_DIR     Base directory for state files (default: $HOME/.paqqets).
-  RELEASE_DIR      Directory for log files (default: location of the script).
+  LOG_DIR        Base directory for log files.
+  RELEASE_DIR    Directory for release builds (default: flutter default).
 
 Examples:
   $0 build
@@ -142,10 +142,10 @@ interactive_menu() {
         6) deploy || log_error "Error running $input" ;;
         7) fvm_info || log_error "Error running $input" ;;
         8) search_and_set_target_device || log_error "Error running $input" ;;
-        q | Q | exit) exit || log_error "Error running $input" ;;
+        q | Q) exit || log_error "Error running $input" ;;
         *)
             log_error "$SEPARATOR\n"
-            log_error "Invalid option. Please try again or type 'exit' to exit."
+            log_error "Invalid option. Please try again or type 'q' to quit."
             ;;
         esac
     done
@@ -221,7 +221,7 @@ create_menu() {
         c | C) return ;;
         *)
             log_error "\n$SEPARATOR\n"
-            log_error "Invalid option. Please try again or type "exit" to exit."
+            log_error "Invalid option. Please try again or type "c" to return to main menu."
             ;;
         esac
     done
