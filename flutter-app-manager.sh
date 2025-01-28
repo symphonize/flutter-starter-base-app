@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Metadata
-# Version: 2025.04.131193+69c561d
+# Version: 2025.04.211365+3e64471
 
 # Path to the project directory
 PROJECT_PATH="$(pwd)"
@@ -109,11 +109,11 @@ format_menu_item() {
 interactive_menu() {
     local menu_items=(
         "Create Menu|Gives the options of thing this script supports creation of app file, launcer icon, splash screen"
-        "Run|Run the Flutter app on target device. Run 'Set Device' to see the current device"
+        "Clean|Clean the build directory"
         "Build Application|Calls all the Required builders fully compile the application "
         "Test|Run tests for the Flutter app"
-        "Clean|Clean the build directory"
         "Package App Release|This will build and Sign a releasable App for the App Store"
+        "Run|Run the Flutter app on target device. Run 'Set Device' to see the current device"
         "FVM Info|This will display the associated environment configuration to determine if it is configured correctly"
         "Set Device|Searches for avaialble android and ios devices. Sets first available as target device."
     )
