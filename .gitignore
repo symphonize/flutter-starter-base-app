@@ -129,3 +129,5 @@ api-response.yml
 
 # FVM Version Cache
 .fvm/
+/ios/
+/android/
