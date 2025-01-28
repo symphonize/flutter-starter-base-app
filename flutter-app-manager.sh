@@ -176,7 +176,7 @@ EOF
 ios='ios'
 android=
 create_platform_specific_files() {
-    read -r -p "$(log_warning "\nWould you like to create for ios? (y/n): ")" response
+    read -r -p "$(log_warning "\nDo you want ios support? (y/n): ")" response
     echo
     if [[ "$response" =~ ^[Yy]$ ]]; then
         if ! fvm flutter create --platforms ios .; then
@@ -184,7 +184,7 @@ create_platform_specific_files() {
             return 1
         fi
     fi
-    read -r -p "$(log_warning "\nWould you like to create for android? (y/n): ")" response
+    read -r -p "$(log_warning "\nDo you want android support? (y/n): ")" response
     echo
     if [[ "$response" =~ ^[Yy]$ ]]; then
         if ! fvm flutter create --platforms android .; then
@@ -242,46 +242,43 @@ fvm_info() {
     done
 }
 create_fvm_if_missing() {
-    if [ ! -f "$CONFIG_FILE" ]; then
-        log_error "\nConfiguration file $CONFIG_FILE is missing."
-        if ! command -v fvm &>/dev/null; then
-            log_error "\nFVM is not installed. Please install it using Homebrew."
-            log_warning "\nRun the following command to install FVM:"
-            log_message "cyan" "brew install fvm"
-            read -r -p "$(log_prompt "yellow" "Would you like to install FVM now? (y/n): ")" response
-            if [[ "$response" =~ ^[Yy]$ ]]; then
-                if command_exists brew; then
-                    brew install fvm
-                    if [ $? -ne 0 ]; then
-                        log_error "Failed to install FVM. Please try installing it manually."
-                        return 1
-                    fi
-                    log_success "\nFVM installed successfully.\n"
-                else
-                    log_error "Homebrew is not installed. Please install Homebrew first by visiting https://brew.sh."
+    if ! command -v fvm &>/dev/null; then
+        log_error "\nFVM is not installed. Please install it using Homebrew."
+        log_warning "\nRun the following command to install FVM:"
+        log_message "cyan" "brew install fvm"
+        read -r -p "$(log_prompt "yellow" "Would you like to install FVM now? (y/n): ")" response
+        if [[ "$response" =~ ^[Yy]$ ]]; then
+            if ! command -v brew &>/dev/null; then
+                log_error "Homebrew is not installed. Please install Homebrew first by visiting https://brew.sh."
+                return 1
+            else
+                brew install fvm
+                if [ $? -ne 0 ]; then
+                    log_error "Failed to install FVM. Please try installing it manually."
                     return 1
                 fi
-            else
-                log_error "Exiting. Please install FVM and try again."
-                return 1
+                log_success "\nFVM installed successfully.\n"
             fi
-        fi
-        log_message "" "\nLast 10 available stable Flutter versions:\n"
-        fvm releases | tail -n 28 | sed '1s/^├.*┼.*┤$/ /; $s/^└.*┴.*┘$/ /'
-        read -r -p "$(log_warning "Would you like to create a new configuration file? (y/n): ")" response
-        if [[ "$response" =~ ^[Yy]$ ]]; then
-            read -r -p "$(log_warning "\nPlease select a Flutter version from the list above:") " selected_version
-            log_success "\nConfiguration file $CONFIG_FILE created with version $selected_version.\n"
-            fvm use $selected_version
         else
-            log_error "Exiting. Please create the configuration file manually."
+            log_error "Exiting. Please install FVM and try again."
             return 1
         fi
-        if ! command -v fvm &>/dev/null; then
-            log_error "\nFVM is not installed. Please install FVM first by running:"
-            log_warning "\nflutter pub global activate fvm\n"
-            return 1
-        fi
+    fi
+    log_message "" "\nLast 10 available stable Flutter versions:\n"
+    fvm releases | tail -n 28 | sed '1s/^├.*┼.*┤$/ /; $s/^└.*┴.*┘$/ /'
+    read -r -p "$(log_warning "Would you like to create a new configuration file? (y/n): ")" response
+    if [[ "$response" =~ ^[Yy]$ ]]; then
+        read -r -p "$(log_warning "\nPlease select a Flutter version from the list above:") " selected_version
+        log_success "\nConfiguration file $CONFIG_FILE created with version $selected_version.\n"
+        fvm use $selected_version
+    else
+        log_error "Exiting. Please create the configuration file manually."
+        return 1
+    fi
+    if ! command -v fvm &>/dev/null; then
+        log_error "\nFVM is not installed. Please install FVM first by running:"
+        log_warning "\nflutter pub global activate fvm\n"
+        return 1
     fi
 }
 deploy() {
